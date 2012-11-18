@@ -4,7 +4,7 @@ Teaching Sketches
 Sketches created for teaching students Processing (and, by extension, Java) plus more advanced topics-based examples.
 
 ####Basics
-Basic program structure; drawing shapes; simple interaction, output)
+Basic program structure; drawing shapes; simple interaction, output
 
 ####Advanced Topics
 Implementation of Java classes for date, etc; fancier iteration examples; window extensions
@@ -13,7 +13,7 @@ Implementation of Java classes for date, etc; fancier iteration examples; window
 Formatting numbers and strings; conversion; run Unix commands
 
 ####3d
-Finding the direction of a triangle's 'normal'
+Finding the direction of a triangle's 'normal' (more to come)
 
 ####Collision Detection
 A suite of functions for 2d collision detection, made from basic math (ie: no vectors, just algebra)
