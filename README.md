@@ -1,6 +1,14 @@
-Teaching Sketches
+TeachingSketches
 ================
 
-Teaching sketches created in Processing (and Java) for teaching students the basics of programming, interactivity, game design, and data visualization.
+Teaching sketches created in Processing (and Java) - sorted by topic:
 
-[ better sorting by topic to come shortly ]
+3d
+Advanced Topics
+Basics
+Collision Detection
+Data Visualization
+Drawing
+Image Processing and OpenCV
+Interaction and Games
+Utilities
