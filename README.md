@@ -3,6 +3,8 @@ Teaching Sketches
 
 Sketches created for teaching students Processing (and, by extension, Java) plus more advanced topics-based examples.
 
+\- \- \-
+
 ####Basics
 Basic program structure; drawing shapes; simple interaction, output
 
@@ -29,3 +31,7 @@ Pixel-based image processing; OpenCV examples
 
 ####Interaction and Games
 Basic game structure; input and interface examples; basic trig
+
+\- \- \-
+
+\[ all code available under [Creative Commons BY-NC-SA license](http://creativecommons.org/licenses/by-nc-sa/3.0/) - feel free to use but [please let me know](http://www.jeffreythompson.org) \]
