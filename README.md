@@ -1,4 +1,4 @@
-Teaching Sketches
+Processing Teaching Sketches
 ================
 
 Sketches created for teaching students Processing (and, by extension, Java) plus more advanced topics-based examples.
