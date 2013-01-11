@@ -12,7 +12,7 @@ Basic program structure; drawing shapes; simple interaction, output
 Implementation of Java classes for date, etc; fancier iteration examples; window extensions
 
 ####Utilities
-Formatting numbers and strings; conversion; run Unix commands
+Formatting numbers and strings; file manipulation; run Unix commands
 
 ####3d
 Finding the direction of a triangle's 'normal' (more to come)
@@ -27,10 +27,13 @@ Basic examples for loading data from file and web; HTML parsing
 Drawing utilities; parallel lines
 
 ####Image Processing and OpenCV
-Pixel-based image processing; OpenCV examples
+Pixel-based image processing; OpenCV examples; seam carving; posterization
 
 ####Interaction and Games
 Basic game structure; input and interface examples; basic trig
+
+####Text Processing
+Parsing text using String functions; word and character counting; reading external files
 
 \- \- \-
 
