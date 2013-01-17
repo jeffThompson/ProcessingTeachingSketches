@@ -8,10 +8,7 @@ coordinates is well-documented:
 
   position = y*width + x;
 
-Getting the reverse - x/y coordinates from a position, is not.
-
-  1. get # rows down (divide position by width)
-  2. using y, we can extract the remainder using our above equation
+Getting the reverse - x/y coordinates from a position, is not... :(
 */
 
 void setup() {
@@ -21,8 +18,8 @@ void setup() {
   // an arbitrary position within the pixel array
   int position = int(random(0, width*height));
 
-  int y = position/width;        // how many rows are we down?
-  int x = position - y*width;    // remainder from finding y
+  int x = position % width;        // remainder from row
+  int y = position / width;        // how many rows are we down?
 
   println(x + ", " + y);
 }
