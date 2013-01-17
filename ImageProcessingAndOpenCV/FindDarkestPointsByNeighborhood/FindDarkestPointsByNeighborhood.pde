@@ -1,6 +1,6 @@
 
 /*
-FIND DARKEST POINTS - BY NEIGHBORHOOD/DISTANCE
+FIND DARKEST POINTS BY NEIGHBORHOOD/DISTANCE
  Jeff Thompson | 2013 | www.jeffreythompson.org
  
  An algorithm to find the darkest points in an image. 
