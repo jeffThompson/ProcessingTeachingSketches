@@ -15,17 +15,17 @@ FIND DARKEST POINTS BY NEIGHBORHOOD/DISTANCE
  
  OTHER RESOURCES
  + Fancier 'clustering algorithms':
-     http://home.dei.polimi.it/matteucc/Clustering/tutorial_html/index.html
+ http://home.dei.polimi.it/matteucc/Clustering/tutorial_html/index.html
  + A few other ideas (including a Processing sketch that crashed for me) at StackOverflow:
-     http://stackoverflow.com/questions/356035/algorithm-for-detecting-clusters-of-dots
+ http://stackoverflow.com/questions/356035/algorithm-for-detecting-clusters-of-dots
  + A faster blurring method for Processing, which can be used in conjunction with the
-   above examples:
-     https://forum.processing.org/topic/fast-blurring
+ above examples:
+ https://forum.processing.org/topic/fast-blurring
  
  */
 
 float storeThresh = 30;         // points' color must be this dark to be stored (0-255)
-float distThresh = 10;          // if too close to another point, don't store
+float distThresh = 50;          // if too close to another point, don't store
 int sampleSize = 20;            // divide image into square of this size (px)
 PImage source, test;            // image objects to load, convert for testing
 
@@ -78,26 +78,30 @@ void setup() {
   println("Found " + darkest.size() + " darkest");
 
   // cull the list, looking for pixels that are too close - if they are, delete the current
+  // great solution mostly via: http://stackoverflow.com/a/14389321/1167783
   println("Culling darkest for proximity...");
-  for (int current = darkest.size()-1; current >= 0; current--) {    // always go backwards through an ArrayList
-    int cx = darkest.get(current) % width;                           // current x/y position
-    int cy = darkest.get(current) / width;
-    for (int other = darkest.size()-1; other >= 0; other--) {        // compare with other points
-      int ox = darkest.get(other) % width;                           // other x/y position
-      int oy = darkest.get(other) / width;
-      float d = dist(cx, cy, ox, oy);                                // distance between other and current
-      if (d > 0 && d < distThresh) {                                 // if 'other' is not 'current' (dist=0) BUT we're too close
-        darkest.remove(current);                                     // remove from ArrayList
+  ArrayList<Integer> results = new ArrayList<Integer>();    // create new ArrayList to store pixels that aren't too close
+all: 
+  for (Integer current : darkest) {                         // label 'all' allows us to continue to outer for loop
+    int cx = current % width;                               // get x/y coords of current point
+    int cy = current / width;
+    for (Integer other : results) {                         // iterate all other points (note this includes the current)
+      int ox = other % width;                               // get x/y of other point
+      int oy = other / width;
+      float d = dist(cx, cy, ox, oy);                       // find distance between the two
+      if (d > 0 && d < distThresh) {                        // first tests for the current point, the second if we're far enough away
+        continue all;                                       // break out and add
       }
     }
+    results.add(current);                                   // we made it! add to the results list
   }
+  darkest = results;                                        // set to original ArrayList for code-clarity
   println("Reduced list to " + darkest.size() + " darkest");
-
 
   // display darkest points on top of dimmed image (to more easily see)
   image(source, 0, 0);
   fill(255, 100);
-  rect(0,0, width,height);
+  rect(0, 0, width, height);
 
   // draw the darkest points as dots
   fill(0);
@@ -105,3 +109,4 @@ void setup() {
     ellipse(c % width, c/width, 4, 4);
   }
 }
+
