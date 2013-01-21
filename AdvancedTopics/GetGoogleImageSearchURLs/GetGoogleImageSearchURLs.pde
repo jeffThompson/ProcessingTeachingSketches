@@ -15,16 +15,23 @@ GET GOOGLE IMAGE SEARCH URLs
  returns a HTTP 403 error:
  http://code.google.com/p/phylowidget/source/browse/trunk/PhyloWidget/src/org/phylowidget/render/images/ImageSearcher.java
  
+ Other arguments (some working, some not) via:
+ https://developers.google.com/image-search/v1/jsondevguide#json_args
+ 
  */
 
-String searchTerm = "toast";          // term to search for
+String searchTerm = "french toast";   // term to search for
 int offset = 20;                      // we can only 20 results at a time - use this to offset and get more!
+String fileSize = "10mp";             // specify file size in mexapixels (S/M/L not figured out yet)
 String source = null;                 // string to save raw HTML source code
+
+// format spaces in URL to avoid problems
+searchTerm = searchTerm.replaceAll(" ", "%20");
 
 // get Google image search HTML source code; mostly built from PhyloWidget example:
 // http://code.google.com/p/phylowidget/source/browse/trunk/PhyloWidget/src/org/phylowidget/render/images/ImageSearcher.java
 try {
-  URL query = new URL("http://images.google.com/images?gbv=1&start=" + offset + "&q=" + searchTerm);  // format URL
+  URL query = new URL("http://images.google.com/images?gbv=1&start=" + offset + "&q=" + searchTerm + "&tbs=isz:lt,islt:" + fileSize);
   HttpURLConnection urlc = (HttpURLConnection) query.openConnection();                                // start connection...
   urlc.setInstanceFollowRedirects(true);
   urlc.setRequestProperty("User-Agent", "");
