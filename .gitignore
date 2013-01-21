@@ -1,1 +1,4 @@
 .DS_Store
+
+# skip examples that aren't quite working yet!
+InProgress_IGNORE
