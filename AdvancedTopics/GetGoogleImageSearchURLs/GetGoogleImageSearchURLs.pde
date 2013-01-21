@@ -20,7 +20,7 @@ GET GOOGLE IMAGE SEARCH URLs
  
  */
 
-String searchTerm = "french toast";   // term to search for
+String searchTerm = "french toast";   // term to search for (use spaces to separate terms)
 int offset = 20;                      // we can only 20 results at a time - use this to offset and get more!
 String fileSize = "10mp";             // specify file size in mexapixels (S/M/L not figured out yet)
 String source = null;                 // string to save raw HTML source code

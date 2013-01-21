@@ -1,8 +1,9 @@
 
 import java.net.HttpURLConnection;    // required for HTML download
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.io.InputStreamReader;     // used to get our raw HTML source        
+import java.io.InputStreamReader;     // used to get our raw HTML source
 
 /*
 GET GOOGLE IMAGE SEARCH URLs - AUTOMATE AND SAVE
@@ -13,12 +14,13 @@ GET GOOGLE IMAGE SEARCH URLs - AUTOMATE AND SAVE
  
  */
 
-String searchTerm = "toast";          // term to search for
-int numSearches = 2;                  // how many searches to do (limited by Google to 20 images each) 
+String searchTerm = "toast";          // term to search for (use spaces to separate terms)
+int numSearches = 1;                  // how many searches to do (limited by Google to 20 images each) 
 String fileSize = "10mp";             // specify file size in mexapixels (S/M/L not figured out yet)
 String source = null;                 // string to save raw HTML source code
 String[] imageLinks = new String[0];  // array to save URLs to - written to file at the end
 int offset = 0;                       // we can only 20 results at a time - increment to get total # of searches
+int imgCount = 0;                     // count saved images for creating filenames
 
 void setup() {
 
@@ -69,13 +71,40 @@ void setup() {
     }
 
     // ** here we get the 2nd item from each match - this is our 'group' containing just the file URL and extension
-    
+
     // update offset by 20 (limit imposed by Google)
     offset += 20;
   }
 
   // save the resulting URLs to a file (easier to see and save)
+  println("Writing URLs to file...");
   saveStrings(searchTerm + "_URLs.txt", imageLinks);
+
+  // and/or save them!
+  // note that this could be done all in the parsing step, but we do this here for clarity
+  println("\nSaving images to disk (this may take a while)...");
+  for (String link : imageLinks) {
+
+    // run in a 'try' in case we can't connect to an image
+    try {
+      
+      // get file's extension - format new filename for saving 
+      String extension = link.substring(link.lastIndexOf('.'), link.length()).toLowerCase();
+      String outputFilename = searchTerm + "_" + nf(imgCount, 5) + extension;
+      println("  " + imgCount + ": " + outputFilename);
+
+      // load and save!
+      PImage img = loadImage(link);
+      img.save(sketchPath("") + searchTerm + "/" + outputFilename);
+      imgCount++;
+    }
+    catch (Exception e) {
+      println("    error downloading image, skipping...");    // likely a NullPointerException
+    }
+    
+    // looking for something fancier? try: 
+    // http://www.avajava.com/tutorials/lessons/how-do-i-save-an-image-from-a-url-to-a-file.html
+  }
 
   // all done!
   println("\nALL DONE!");
