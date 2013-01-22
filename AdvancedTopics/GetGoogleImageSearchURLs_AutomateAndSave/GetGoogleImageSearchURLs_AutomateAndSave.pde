@@ -1,31 +1,49 @@
 
 import java.net.HttpURLConnection;    // required for HTML download
-import java.net.URL;
+import java.net.URL;                  // ditto, etc...
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.io.InputStreamReader;     // used to get our raw HTML source
+import java.io.File;
 
 /*
 GET GOOGLE IMAGE SEARCH URLs - AUTOMATE AND SAVE
  Jeff Thompson | 2013 | www.jeffreythompson.org
  
  A more advanced version of the 'GetGoogleImageSearchURLs' sketch - this one gets URLs 20 at a time (the
- max limit from Google), then downloads them to a folder.
+ max limit from Google), then downloads them to a folder.  Other goodies (like auto-increment filename)
+ are in the code below!
  
  */
 
 String searchTerm = "toast";          // term to search for (use spaces to separate terms)
 int numSearches = 1;                  // how many searches to do (limited by Google to 20 images each) 
-String fileSize = "10mp";             // specify file size in mexapixels (S/M/L not figured out yet)
+String fileSize = "10mp";             // specify file size in mexapixels - S/M/L not figured out yet :)
+boolean saveImages = false;           // save the resulting images?
+
 String source = null;                 // string to save raw HTML source code
 String[] imageLinks = new String[0];  // array to save URLs to - written to file at the end
 int offset = 0;                       // we can only 20 results at a time - increment to get total # of searches
 int imgCount = 0;                     // count saved images for creating filenames
+String outputTerm;
+
 
 void setup() {
 
-  // format spaces in URL to avoid problems
+  // format spaces in URL to avoid problems; convert to _ for saving
+  outputTerm = searchTerm.replaceAll(" ", "_");
   searchTerm = searchTerm.replaceAll(" ", "%20");
+
+  // any images already stored in this folder? if so, start our count at the highest value
+  // to avoid overwriting any files
+  File previous = new File(sketchPath("") + outputTerm);
+  if (previous.exists() && previous.isDirectory()) {
+    println("Updating image filenames to avoid overwriting existing files!");
+    File[] allFiles = previous.listFiles();
+    String lastEntry = allFiles[allFiles.length-1].getName();                                           // get final file (by necessity this will be alpha order)  
+    String lastNumber = lastEntry.substring(lastEntry.lastIndexOf('_')+1, lastEntry.lastIndexOf('.'));  // split from _ to .
+    imgCount = offset = Integer.parseInt(lastNumber) + 1;                                               // update the count and offset so we don't overwite!
+  }
 
   // run search as many times as specified
   println("Retreiving image links (" + fileSize + ")...\n");
@@ -65,8 +83,10 @@ void setup() {
     if (source != null) {
       // built partially from: http://www.mkyong.com/regular-expressions/how-to-validate-image-file-extension-with-regular-expression
       String[][] m = matchAll(source, "imgurl=(.*?\\.(?i)(jpg|jpeg|png|gif|bmp|tif|tiff))");    // (?i) means case-insensitive
-      for (int i=0; i<m.length; i++) {                                                          // iterate all results of the match
-        imageLinks = append(imageLinks, m[i][1]);
+      if (m != null) {                                                                          // did we find a match?
+        for (int i=0; i<m.length; i++) {                                                        // iterate all results of the match
+          imageLinks = append(imageLinks, m[i][1]);                                             // add links to the array**
+        }
       }
     }
 
@@ -77,33 +97,35 @@ void setup() {
   }
 
   // save the resulting URLs to a file (easier to see and save)
-  println("Writing URLs to file...");
-  saveStrings(searchTerm + "_URLs.txt", imageLinks);
+  println("\nWriting URLs to file...");
+  saveStrings("urlLists/" + searchTerm + "_URLs.txt", imageLinks);
 
   // and/or save them!
   // note that this could be done all in the parsing step, but we do this here for clarity
-  println("\nSaving images to disk (this may take a while)...");
-  for (String link : imageLinks) {
+  if (saveImages) {
+    println("\nSaving images to disk (this may take a while)...");
+    for (String link : imageLinks) {
 
-    // run in a 'try' in case we can't connect to an image
-    try {
-      
-      // get file's extension - format new filename for saving 
-      String extension = link.substring(link.lastIndexOf('.'), link.length()).toLowerCase();
-      String outputFilename = searchTerm + "_" + nf(imgCount, 5) + extension;
-      println("  " + imgCount + ": " + outputFilename);
+      // run in a 'try' in case we can't connect to an image
+      try {
 
-      // load and save!
-      PImage img = loadImage(link);
-      img.save(sketchPath("") + searchTerm + "/" + outputFilename);
-      imgCount++;
+        // get file's extension - format new filename for saving (use name with '_' instead of '%20'
+        String extension = link.substring(link.lastIndexOf('.'), link.length()).toLowerCase();
+        String outputFilename = outputTerm + "_" + nf(imgCount, 5) + extension;
+        println("  " + imgCount + ":\t" + outputFilename);
+
+        // load and save!
+        PImage img = loadImage(link);
+        img.save(sketchPath("") + outputTerm + "/" + outputFilename);
+        imgCount++;
+      }
+      catch (Exception e) {
+        println("    error downloading image, skipping...\n");    // likely a NullPointerException
+      }
+
+      // looking for something fancier? try: 
+      // http://www.avajava.com/tutorials/lessons/how-do-i-save-an-image-from-a-url-to-a-file.html
     }
-    catch (Exception e) {
-      println("    error downloading image, skipping...");    // likely a NullPointerException
-    }
-    
-    // looking for something fancier? try: 
-    // http://www.avajava.com/tutorials/lessons/how-do-i-save-an-image-from-a-url-to-a-file.html
   }
 
   // all done!
