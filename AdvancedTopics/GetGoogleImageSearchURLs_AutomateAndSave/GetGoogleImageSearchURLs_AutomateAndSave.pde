@@ -14,12 +14,17 @@ GET GOOGLE IMAGE SEARCH URLs - AUTOMATE AND SAVE
  max limit from Google), then downloads them to a folder.  Other goodies (like auto-increment filename)
  are in the code below!
  
+ Some other good-looking resources:
+ https://developers.google.com/custom-search/docs/xml_results?hl=en
+ 
  */
 
-String searchTerm = "toast";          // term to search for (use spaces to separate terms)
-int numSearches = 1;                  // how many searches to do (limited by Google to 20 images each) 
+// term to search for (use spaces to separate terms)
+String searchTerm = "mountain grass";
+
+int numSearches = 10;                 // how many searches to do (limited by Google to 20 images each) 
 String fileSize = "10mp";             // specify file size in mexapixels - S/M/L not figured out yet :)
-boolean saveImages = false;           // save the resulting images?
+boolean saveImages = true;            // save the resulting images?
 
 String source = null;                 // string to save raw HTML source code
 String[] imageLinks = new String[0];  // array to save URLs to - written to file at the end
@@ -48,8 +53,9 @@ void setup() {
   // run search as many times as specified
   println("Retreiving image links (" + fileSize + ")...\n");
   for (int search=0; search<numSearches; search++) {
+    
     // let us know where we're at in the process
-    print("  " + (search+1) + " / " + numSearches + ":");
+    print("  " + ((search+1)*20) + " / " + (numSearches*20) + ":");
 
     // get Google image search HTML source code; mostly built from PhyloWidget example:
     // http://code.google.com/p/phylowidget/source/browse/trunk/PhyloWidget/src/org/phylowidget/render/images/ImageSearcher.java
@@ -70,7 +76,7 @@ void setup() {
         }
         response.append(buffer, 0, charsRead);
       }
-      in.close();                                                                                          // close input stream (also closes network connection)
+      in.close();                                                                                         // close input stream (also closes network connection)
       source = response.toString();
     }
     // any problems connecting? let us know
@@ -111,6 +117,12 @@ void setup() {
 
         // get file's extension - format new filename for saving (use name with '_' instead of '%20'
         String extension = link.substring(link.lastIndexOf('.'), link.length()).toLowerCase();
+        if (extension.equals("jpeg")) {        // normalize jpg extension
+          extension = "jpg";
+        }
+        else if (extension.equals("tif")) {    // do the same for the unlikely case of a tiff file
+          extension = "tiff";
+        }
         String outputFilename = outputTerm + "_" + nf(imgCount, 5) + extension;
         println("  " + imgCount + ":\t" + outputFilename);
 

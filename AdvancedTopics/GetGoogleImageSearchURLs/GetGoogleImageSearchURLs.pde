@@ -18,6 +18,9 @@ GET GOOGLE IMAGE SEARCH URLs
  Other arguments (some working, some not) via:
  https://developers.google.com/image-search/v1/jsondevguide#json_args
  
+ Also looks helpful:
+ https://developers.google.com/custom-search/docs/xml_results?hl=en
+ 
  */
 
 String searchTerm = "french toast";   // term to search for (use spaces to separate terms)
