@@ -14,13 +14,17 @@ GET GOOGLE IMAGE SEARCH URLs - AUTOMATE AND SAVE
  max limit from Google), then downloads them to a folder.  Other goodies (like auto-increment filename)
  are in the code below!
  
+ Note that this system uses Processing's built-in 'loadImage' method, which can be rejected (throws a
+ HTTP 403 error) from some servers.  This error is ignored in the code below.  Using Java methods
+ such as FileInputStream present a better, more flexible alternative.
+ 
  Some other good-looking resources:
  https://developers.google.com/custom-search/docs/xml_results?hl=en
  
  */
 
 // term to search for (use spaces to separate terms)
-String searchTerm = "mountain grass";
+String searchTerm = "bowl of fruit";
 
 int numSearches = 10;                 // how many searches to do (limited by Google to 20 images each) 
 String fileSize = "10mp";             // specify file size in mexapixels - S/M/L not figured out yet :)

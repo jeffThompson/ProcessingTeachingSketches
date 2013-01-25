@@ -1,3 +1,9 @@
+
+import java.io.File;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+
 /*
 HOW MANY LINES OF CODE DID YOU WRITE THIS YEAR?
  Jeff Thompson
@@ -5,12 +11,14 @@ HOW MANY LINES OF CODE DID YOU WRITE THIS YEAR?
  
  Well, how many did you write?
  
+ Currently doesn't do a great job of looking :(
+ 
  www.jeffreythompson.org
  */
 
-int whichYear = 2011;    // what year do you want to report?
+int whichYear = 2012;                                          // what year do you want to report?
+String sketchbook = "/Users/jthompson9/Documents/Processing";  // sketchbook location
 
-String sketchbook;
 int numFiles = 0;
 int lineCount = 0;
 int totalLines = 0;
@@ -19,7 +27,7 @@ BufferedReader reader;
 void setup() {
 
   // get sketchbook folder
-  sketchbook = sketchPath.substring(0, sketchPath.lastIndexOf(File.separator));
+  // sketchbook = sketchPath.substring(0, sketchPath.lastIndexOf(File.separator));
   println("Reading in: " + sketchbook);
 
   // write list of all folders to a File array
