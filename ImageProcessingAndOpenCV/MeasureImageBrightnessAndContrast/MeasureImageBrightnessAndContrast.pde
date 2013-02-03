@@ -2,12 +2,12 @@
 MEASURE IMAGE BRIGHTNESS AND CONTRAST
 Jeff Thompson | 2013 | www.jeffreythompson.org
 
-Measures the overall contrast in an image using the Root Mean Square (RMS).
+Measures the overall brightness and contrast in an image.
 
-Based on this formula:
+Contrast based on this formula:
 http://en.wikipedia.org/wiki/Contrast_%28vision%29#RMS_contrast
 
-Thanks to Amnon Owed for helping figure out the algorithm!
+Thanks to Amnon Owed for helping figure out the contrast/RMS algorithm!
 https://forum.processing.org/topic/calculate-image-contrast-using-root-mean-square-rms#25080000001971367
 */
 
@@ -23,9 +23,8 @@ void setup() {
   img = loadImage(filename);
   size(img.width, img.height);
   image(img, 0,0);
-  
-  colorMode(RGB, 1.0);        // makes working with values easier, since RMS expects values 0-1
-  loadPixels();               // load pixels into array, iterate!
+  colorMode(RGB, 1.0);            // makes working with values easier, since RMS expects values 0-1
+  loadPixels();                   // load pixels into array, iterate!
   
   // find average brightness across image
   for (color c : pixels) {
