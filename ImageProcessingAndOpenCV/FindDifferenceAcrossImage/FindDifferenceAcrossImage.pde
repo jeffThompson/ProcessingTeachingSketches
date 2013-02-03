@@ -21,7 +21,7 @@ FIND DIFFERENCE ACROSS IMAGE
 
 int numRects = 4000;  // how many random rectangles to draw
 int numTries = 5;     // how many times to test the average before quitting
-int count = 0;        // keep track of the tries as we go
+int count = 1;        // keep track of the tries as we go
 float thresh = 5.0;   // what average difference is acceptable?
 
 void setup() {
@@ -52,8 +52,6 @@ void setup() {
   for (int i=width; i<pixels.length-width; i++) {
 
     // get pixel values for right, left, up, and down
-    // note: this is not very efficient - see the Processing
-    // documentation for bit-masking, especially on large images
     color r = pixels[i+1];
     color l = pixels[i-1];
     color u = pixels[i-width];

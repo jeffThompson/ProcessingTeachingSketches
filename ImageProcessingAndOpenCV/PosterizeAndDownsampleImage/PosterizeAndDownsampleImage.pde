@@ -24,7 +24,7 @@ void setup() {
   pixelateImage(80);    // argument is resulting pixel size
   posterizeImage(20);   // argument is the step size for posterization
   
-  save("PixelatedAndPosterized_" + filename);
+  // save("PixelatedAndPosterized_" + filename);
 }
 
 void pixelateImage(int pxSize) {

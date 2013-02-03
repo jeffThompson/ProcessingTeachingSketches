@@ -15,7 +15,7 @@ https://forum.processing.org/topic/pimage-memory-leak-example#25080000001807951
 
 */
 
-boolean manuallyDeleteImage = true;                // test it!
+boolean manuallyDeleteImage = true;                  // test it!
 
 void setup() {
   size(400, 400);
@@ -25,12 +25,12 @@ void setup() {
 // run out of memory!
 void draw() {
   
-  PImage img = createImage(width, height, RGB);    // create a new PImage - shouldn't cause any problems, right?
-  image(img, 0, 0);                                // display
+  PImage img = createImage(width, height, RGB);      // create a new PImage - shouldn't cause any problems, right?
+  image(img, 0, 0);                                  // display
   
   if (manuallyDeleteImage) {
     g.removeCache(img);                              // delete from memory manually
-    println(frameCount + ":\t" + g.getCache(img));     // prove to us the PImage is no longer in existence!
+    println(frameCount + ":\t" + g.getCache(img));   // prove to us the PImage is no longer in existence!
   }
 }
 
