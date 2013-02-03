@@ -6,6 +6,9 @@ Measures the overall contrast in an image using the Root Mean Square (RMS).
 
 Based on this formula:
 http://en.wikipedia.org/wiki/Contrast_%28vision%29#RMS_contrast
+
+Thanks to Amnon Owed for helping figure out the algorithm!
+https://forum.processing.org/topic/calculate-image-contrast-using-root-mean-square-rms#25080000001971367
 */
 
 // file to load (gray, mountain, truck)
