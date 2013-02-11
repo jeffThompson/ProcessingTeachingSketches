@@ -7,6 +7,8 @@ import java.util.HashSet;
  
 X   Complexity
 X   Brightness
+    Saturation
+    Dominant Hue (diff than overall colors via posterization)
 ~   Contrast
 X   W/H ratio
 X   Top N colors

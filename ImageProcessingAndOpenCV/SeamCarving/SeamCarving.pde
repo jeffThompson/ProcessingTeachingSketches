@@ -20,8 +20,8 @@
  */
 
 // file to read in:
-String filename = "face.jpg";
-// String filename = "mountainLake.jpg";
+// String filename = "face.jpg";
+String filename = "mountainLake.jpg";
 // String filename = "crowd.jpg";
 // String filename = "missile.jpg";
 // String filename = "sheep.jpg";
@@ -89,6 +89,12 @@ void draw() {
     // when done, update pixels to display
     updatePixels();
     findNext = false;
+  }
+}
+
+void keyPressed() {
+  if (key == 32) {
+    save("SeamCarving_" + bottomIndex + ".tiff");
   }
 }
 
