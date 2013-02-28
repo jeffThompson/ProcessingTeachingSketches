@@ -32,6 +32,9 @@ BASIC DATA VISUALIZATION
  
  www.jeffreythompson.org
  */
+ 
+import java.net.*;
+import java.io.FileOutputStream;
 
 // DATA READING VARIABLES
 String filename = "earthquakes.csv";    // what to save the downloaded file as

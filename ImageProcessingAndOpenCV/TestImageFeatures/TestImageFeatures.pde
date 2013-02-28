@@ -5,10 +5,18 @@ import java.util.HashSet;
 
 /*
  
+ RESOURCES:
+ http://effbot.org/zone/pil-pixel-access.htm
+ http://en.wikipedia.org/wiki/Acutance
+ http://en.wikipedia.org/wiki/Bag-of-words_model_in_computer_vision
+ http://stackoverflow.com/questions/7765810/is-there-a-way-to-detect-if-an-image-is-blurry/7767755#7767755
+ http://www.sciencedirect.com/science/article/pii/S0042698996002507
+ http://dasl.mem.drexel.edu/alumni/bGreen/www.pages.drexel.edu/_weg22/can_tut.html
+ 
 X   Complexity
 X   Brightness
-    Saturation
-    Dominant Hue (diff than overall colors via posterization)
+X   Saturation
+X    Dominant Hue (diff than overall colors via posterization)
 ~   Contrast
 X   W/H ratio
 X   Top N colors
@@ -39,10 +47,23 @@ void setup() {
   float diffAcross = stats.differenceAcrossImage();
   println("Diff Across Image:    " + diffAcross);
   
+  float averageSaturation = stats.averageSaturation();
+  println("Average Saturation:   " + averageSaturation);
+  
+  float averageHue = stats.averageHue();
+  println("Average Hue:          " + averageHue);
+  
+  float averageRed = stats.averageRed();
+  float averageGreen = stats.averageGreen();
+  float averageBlue = stats.averageBlue();
+  println("Average RGB:          " + averageRed + ", " + averageGreen + ", " + averageBlue);
+  
+  println();
+  
   color[] mostDominant = stats.mostDominantColors(4);  // num colors
   println(mostDominant.length + " Most Dominant Colors:");
   for (int i=0; i<mostDominant.length; i++) {
-    println("  " + (mostDominant[i] >> 16 & 0xFF) + ", " + (mostDominant[i] >> 8 & 0xFF) + ", " + (mostDominant[i] & 0xFF));
+    println("  (" + (mostDominant[i] >> 16 & 0xFF) + ", " + (mostDominant[i] >> 8 & 0xFF) + ", " + (mostDominant[i] & 0xFF) + ")");
   }
 
   // display the image

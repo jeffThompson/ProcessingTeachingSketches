@@ -1,5 +1,5 @@
 /*
-READ CSV FILE
+READ CSV FILE USING BufferedReader
 Jeff Thompson
 Fall 2011
 
@@ -17,8 +17,6 @@ If you need to read more than one file simultaneously, multiple BufferedReaders 
 be created.  Either specify them individually, or create an array of them like this:
 
 BufferedReader[] readers = new BufferedReader[numberOfReaders];
-
-Looking for more files to visualize?  Try data.gov...
 
 www.jeffreythompson.org
 */

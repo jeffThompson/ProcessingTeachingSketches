@@ -23,6 +23,9 @@ A suite of functions for 2d collision detection, made from basic math (ie: no ve
 ####Data Visualization
 Basic examples for loading data from file and web; HTML parsing
 
+####Mapping
+Map-specific examples for GPS position, etc
+
 ####Drawing
 Drawing utilities; parallel lines
 
@@ -34,6 +37,9 @@ Basic game structure; input and interface examples; basic trig
 
 ####Text Processing
 Parsing text using String functions; word and character counting; reading external files
+
+####Android
+Growing collection of Android examples
 
 \- \- \-
 

@@ -111,10 +111,50 @@ class ImageStats {
     bDiff = abs(bDiff / img.pixels.length);
     return (hDiff + sDiff + bDiff) / 3;
   }
-  
+
+  float averageSaturation() {
+    float ave = 0;
+    for (color c : img.pixels) {
+      ave += saturation(c);
+    }
+    return ave/img.pixels.length;
+  }
+
+  float averageHue() {
+    float ave = 0;
+    for (color c : img.pixels) {
+      ave += hue(c);
+    }
+    return ave/img.pixels.length;
+  }
+
+  float averageRed() {
+    float ave = 0;
+    for (color c : img.pixels) {
+      ave += c >> 16 & 0xFFF;
+    }
+    return ave/img.pixels.length;
+  }
+
+  float averageGreen() {
+    float ave = 0;
+    for (color c : img.pixels) {
+      ave += c >> 8 & 0xFFF;
+    }
+    return ave/img.pixels.length;
+  }
+
+  float averageBlue() {
+    float ave = 0;
+    for (color c : img.pixels) {
+      ave += c & 0xFFF;
+    }
+    return ave/img.pixels.length;
+  }
+
   color[] mostDominantColors(int steps) {
     PImage posterized = createImage(img.width, img.height, RGB);
-    posterized.copy(img, 0,0, img.width,img.height, 0,0, img.width,img.height);
+    posterized.copy(img, 0, 0, img.width, img.height, 0, 0, img.width, img.height);
     posterized.filter(POSTERIZE, steps);
     posterized.loadPixels();
     Integer[] cast = new Integer[posterized.pixels.length];
