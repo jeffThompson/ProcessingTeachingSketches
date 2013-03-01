@@ -9,7 +9,7 @@ When the mouse (your finger) is moved, vibrate and change the screen's
 color. Alternatively, the Android API allows an array of values for
 variable pulsing.
 
-Note: you must add "Vibration" to the permissions for the sketch under
+Note: you must add "VIBRATE" to the permissions for the sketch under
 Android > Sketch Permissions...
 
 More details and options at:
