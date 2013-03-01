@@ -43,10 +43,10 @@ void setup() {
 
   // basic setup and font loading
   orientation(LANDSCAPE);            // set to horizontal mode
-  smooth();
   font = createFont("Arial", 72);    // createFont preferred over loadFont for Android
   textFont(font);
   textAlign(CENTER, CENTER);
+  smooth();
 
   // if GPS can be accessed, store in 'location' string
   try {
@@ -67,16 +67,17 @@ void setup() {
 
       // go through all entries (can include street address, city, postal code, or even points of interest)
       for (int i=0; i<addr.getMaxAddressLineIndex(); i++) {
-        address += addr.getAddressLine(i) + "\n";
+        address += addr.getAddressLine(i) + "\n";                                // add to address with newline character
       }
     }
     else {
       address = "[ no address found for this location, sorry! ]";                // let us know if we couldn't find an address
     }
 
-    // format into a nice printable string
+    // done! format into a nice printable string
     location = latitude + " / " + longitude + "\n\n" + address;
   }
+  
   // if we couldn't connect, set 'location' to an error message
   catch (NullPointerException npe) {
     location = "[ gps not available ]";
@@ -89,6 +90,6 @@ void setup() {
 
 void draw() {
   background(150, 75, 0);
-  fill(0);
+  fill(255);
   text(location, width/2, height/2);
 }
