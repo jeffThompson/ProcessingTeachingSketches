@@ -16,7 +16,6 @@ http://developer.android.com/reference/android/view/Display.html
 
 CHALLENGE:
 1. Try making your finger control the orientation of the screen!
-2. Try getting other parameters
 */
 
 boolean fixedOrientation = false;    // allow the orientation to be changed?
@@ -38,16 +37,18 @@ void setup() {
 }
 
 void draw() {
-  background(255,150,0);
   
   // display the orientation of the device
   if (width == height) {
+    background(255,0,150);
     text("SQUARE (LIKE A DONUT)", width/2,height/2);
   }
   else if (width < height) {
-    text("PORTRAIT (LIKE A HAMBURGER)", width/2,height/2);
+    background(255,150,0);
+    text("PORTRAIT (LIKE AN ICE CREAM CONE)", width/2,height/2);
   }
   else {
+    background(0,150,255);
     text("LANDSCAPE (LIKE A HOTDOG)", width/2,height/2);
   }
 }
