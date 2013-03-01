@@ -31,7 +31,7 @@ GPS LOCATION
  1. Look through the Android API to parse just the postal code or some aspect of the address
  2. Can you map the latitude/longitude to a point on the screen?
  3. Can you reverse this process, moving a point on the screen, get it's mapped lat/long and
-    look up the address at that point?
+ look up the address at that point?
  */
 
 double longitude, latitude;   // Android returns location as double, not float
@@ -56,28 +56,22 @@ void setup() {
     longitude = gpsLocation.getLongitude();
     latitude = gpsLocation.getLatitude();
 
-    // parse coords into address - must run in a 'try' statement
-    // this involves several steps through the Android API - likely easier to
-    // wrap this up into a function... 
-    try {
-      Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-      List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);  // 1 = # of results to get
-      if (!addresses.isEmpty()) {                                                  // if there is an address...
-        Address addr = addresses.get(0);                                           // get from list...
-        
-        // address = addr.toString();                                              // could do this, but messy and long
-        
-        // go through all entries (can include street address, city, postal code, or even points of interest)
-        for (int i=0; i<addr.getMaxAddressLineIndex(); i++) {
-          address += addr.getAddressLine(i) + "\n";
-        }
-      }
-      else {
-        address = "[ no address found for this location, sorry! ]";                // let us know if we couldn't find an address
+    // parse coords into address; this involves several steps through the Android
+    // API - likely easier to wrap this up into a function... 
+    Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+    List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);  // 1 = # of results to get
+    if (!addresses.isEmpty()) {                                                  // if there is an address...
+      Address addr = addresses.get(0);                                           // get from list...
+
+      // address = addr.toString();        // could do this, but messy and long
+
+      // go through all entries (can include street address, city, postal code, or even points of interest)
+      for (int i=0; i<addr.getMaxAddressLineIndex(); i++) {
+        address += addr.getAddressLine(i) + "\n";
       }
     }
-    catch (IOException ioe) {
-      // problem loading address - skip!
+    else {
+      address = "[ no address found for this location, sorry! ]";                // let us know if we couldn't find an address
     }
 
     // format into a nice printable string
@@ -87,6 +81,10 @@ void setup() {
   catch (NullPointerException npe) {
     location = "[ gps not available ]";
   }
+  // problem loading address
+  catch (IOException ioe) {
+    // do nothing...
+  }
 }
 
 void draw() {
@@ -94,4 +92,3 @@ void draw() {
   fill(0);
   text(location, width/2, height/2);
 }
-
