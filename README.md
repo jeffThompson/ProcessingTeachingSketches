@@ -39,7 +39,7 @@ Basic game structure; input and interface examples; basic trig
 Parsing text using String functions; word and character counting; reading external files
 
 ####Android
-Growing collection of Android examples
+Growing collection of Android examples; the goal for these examples is to present the cleanest, simplest methods to interface with the Android API, especially for reading the sensors.
 
 \- \- \-
 
