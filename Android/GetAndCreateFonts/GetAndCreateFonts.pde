@@ -12,7 +12,6 @@ that list.
 
 CHALLENGE:
 1. How might you set the font size based on the screen's resolution?
-
 */
 
 int fontSize = 72;

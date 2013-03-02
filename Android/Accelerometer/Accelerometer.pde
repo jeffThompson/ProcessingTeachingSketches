@@ -29,10 +29,11 @@ ACCELEROMETER
  
  CHALLENGE:
  1. Make the ball change color when it hits the walls, change color based on the
- speed of motion, or react in some other way to the sensor reading.
- 2. Create an array of balls that all bump around the screen!
- 3. Try the other sensors such as the MAGNETIC_FIELD sensor instead - see the full
- list using the API link above.
+    speed of motion, or react in some other way to the sensor reading.
+ 2. Get the ball speed into a more useful range using map() on the accelerometer values.
+ 3. Create an array of balls that all bump around the screen!
+ 4. Try the other sensors such as the MAGNETIC_FIELD sensor instead - see the full
+    list using the API link above.
  */
 
 int ballSize = 800;                // size for rolling ball
