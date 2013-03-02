@@ -8,6 +8,8 @@ ADVANCED TOUCH INTERACTION
  can get the x/y coordinates as usual, but also the type of event,
  the pressure of press, and pointer size (scaled 0-1).
  
+ Multi-touch? That's a much harder nut to crack... :)
+ 
  Further MotionEvent documentation here:
  http://developer.android.com/reference/android/view/MotionEvent.html
  
@@ -16,6 +18,7 @@ ADVANCED TOUCH INTERACTION
  based on the interaction type.
  */
 
+float x, y;
 String touchEvent = "";    // string for touch event type
 float pressure = 0.0;      // pressure and size variables
 float pointerSize = 0.0;
@@ -24,6 +27,8 @@ PFont font;                // font to display stats
 void setup() {
   smooth();
   noStroke();
+  x = width/2;
+  y = height/2;
 
   font = createFont("Monospaced", 72);
   textFont(font);
@@ -35,7 +40,9 @@ void draw() {
 
   // display a circle at the cursor
   fill(255, 150);
-  ellipse(mouseX, mouseY, 150, 150);
+  ellipse(x, y, 150, 150);    // could use mouseX/mouseY, but MotionEvent is more accurate*
+  
+  // * this is according Processing Wiki (http://wiki.processing.org/w/Android#Mouse.2C_Motion.2C_Keys.2C_and_Input)
 
   // display the stats for the touch
   fill(255);
@@ -47,6 +54,9 @@ void draw() {
 @Override
 public boolean dispatchTouchEvent(MotionEvent event) {
 
+  x = event.getX();                              // get x/y coords of touch event
+  y = event.getY();
+  
   int action = event.getActionMasked();          // get code for action
   pressure = event.getPressure();                // get pressure and size
   pointerSize = event.getSize();
