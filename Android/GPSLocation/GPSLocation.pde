@@ -2,10 +2,11 @@ import android.content.Context;              // required imports for GPS
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.Criteria;
 
 import android.location.Geocoder;            // optional imports to get address from GPS coords
 import android.location.Address;
-import java.util.Locale;                     // note this is a Java import, not Android
+import java.util.Locale;                     // note these is a Java import, not Android
 import java.util.List;
 
 /*
@@ -24,14 +25,17 @@ GPS LOCATION
  + ACCESS_FINE_LOCATION
  + INTERNET (for non-3G tablets, might not be required for phones?)
  
- Based on an example via:
+ Based (in part) on an example via:
  http://stackoverflow.com/a/2227299/1167783 
  
  CHALLENGE:
  1. Look through the Android API to parse just the postal code or some aspect of the address
  2. Can you map the latitude/longitude to a point on the screen?
  3. Can you reverse this process, moving a point on the screen, get it's mapped lat/long and
- look up the address at that point?
+    look up the address at that point?
+ 4. Getting altitude from GPS is notoriously inaccurate - look at this example pulling
+    data from the internet: 
+    http://stackoverflow.com/questions/1995998/android-get-altitude-by-longitude-and-latitude
  */
 
 double longitude, latitude;   // Android returns location as double, not float
@@ -50,9 +54,14 @@ void setup() {
 
   // if GPS can be accessed, store in 'location' string
   try {
-    // get GPS coords
+    // get GPS coords - a lot of steps, but basically we load the best provider (either 3G or
+    // GPS) and get the current location!
     LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-    Location gpsLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    Criteria criteria = new Criteria();                          // default provider criteria
+    String provider = lm.getBestProvider(criteria, false);       // can get a list of providers, or the best
+    Location gpsLocation = lm.getLastKnownLocation(provider);    // location (last known if new isn't available)
+    
+    // parse coordinates from Location
     longitude = gpsLocation.getLongitude();
     latitude = gpsLocation.getLatitude();
 
