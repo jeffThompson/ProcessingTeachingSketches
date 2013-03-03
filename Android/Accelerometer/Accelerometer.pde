@@ -30,13 +30,15 @@ ACCELEROMETER
  CHALLENGE:
  1. Make the ball change color when it hits the walls, change color based on the
     speed of motion, or react in some other way to the sensor reading.
- 2. Get the ball speed into a more useful range using map() on the accelerometer values.
- 3. Create an array of balls that all bump around the screen!
- 4. Try the other sensors such as the MAGNETIC_FIELD sensor instead - see the full
+ 2. Create an array of balls that all bump around the screen!
+ 3. Try the other sensors such as the MAGNETIC_FIELD sensor instead - see the full
     list using the API link above.
+ 4. One word: Plinko! Or, try creating different regions of the screen that
+    change the speed like terrains in a landscape (mud, pavement, etc).
  */
 
 int ballSize = 800;                // size for rolling ball
+float mult = 10.0;                 // multiply sensor reading for faster movement
 
 SensorManager sensorManager;       // keep track of sensor
 SensorListener sensorListener;     // special class for noting sensor changes
@@ -70,8 +72,8 @@ void draw() {
     text("x: " + nf(accelData[0], 2, 3) + ", y: " + nf(accelData[1], 2, 3) + ", z: " + nf(accelData[2], 2, 3), width/2, height/2);
 
     // move the ball, hit the edges of the screen
-    ballX -= accelData[0];    // subtract so we move in the correct direction L-R
-    ballY += accelData[1];
+    ballX -= accelData[0] * mult;    // subtract so we move in the correct direction L-R
+    ballY += accelData[1] * mult;    // multiply by a value for faster movement!
     if (ballX-ballSize/2 <= 0) ballX = ballSize/2;
     if (ballX+ballSize/2 >= width) ballX = width-ballSize/2;
     if (ballY-ballSize/2 <= 0) ballY = ballSize/2;
