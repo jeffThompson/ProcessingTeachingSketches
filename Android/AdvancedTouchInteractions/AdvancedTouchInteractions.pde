@@ -46,7 +46,12 @@ void draw() {
 
   // display the stats for the touch
   fill(255);
-  text("EVENT TYPE:   " + touchEvent + "\nPRESSURE:     " + pressure + "\nPOINTER SIZE: " + pointerSize, 150, height/2);
+  String details = "X POSITION:   " + x;
+  details += "\nY POSITION:   " + y;
+  details += "\nEVENT TYPE:   " + touchEvent;
+  details += "\nPRESSURE:     " + pressure;
+  details += "\nPOINTER SIZE: " + pointerSize;
+  text(details, 150, height/2);
 }
 
 // override the built-in method, getting data from it and passing the
