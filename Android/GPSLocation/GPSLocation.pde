@@ -13,9 +13,9 @@ import java.util.List;
 GPS LOCATION
  Jeff Thompson | 2013 | www.jeffreythompson.org
  
- Get location data via GPS! Here we read the location once
- when the app starts; a "smarter" version might update the
- GPS when the accelerometer is moved, or every N-seconds, etc.
+ Get location data via GPS! Here we read the location when the
+ user click-and-drags on the screen; a "smarter" version might update
+ the GPS when the accelerometer is moved, or every N-seconds, etc.
  
  We also get the address from the GPS coordinates - note this returns
  an array of choices, which could be picked by the user; instead we
@@ -32,10 +32,10 @@ GPS LOCATION
  1. Look through the Android API to parse just the postal code or some aspect of the address
  2. Can you map the latitude/longitude to a point on the screen?
  3. Can you reverse this process, moving a point on the screen, get it's mapped lat/long and
-    look up the address at that point?
+ look up the address at that point?
  4. Getting altitude from GPS is notoriously inaccurate - look at this example pulling
-    data from the internet: 
-    http://stackoverflow.com/questions/1995998/android-get-altitude-by-longitude-and-latitude
+ data from the internet: 
+ http://stackoverflow.com/questions/1995998/android-get-altitude-by-longitude-and-latitude
  */
 
 double longitude, latitude;   // Android returns location as double, not float
@@ -46,12 +46,31 @@ PFont font;
 void setup() {
 
   // basic setup and font loading
-  orientation(LANDSCAPE);            // set to horizontal mode
-  font = createFont("Arial", 72);    // createFont preferred over loadFont for Android
+  orientation(LANDSCAPE);                // set to horizontal mode
+  font = createFont("SansSerif", 72);    // createFont preferred over loadFont for Android
   textFont(font);
   textAlign(CENTER, CENTER);
   smooth();
 
+  // starting message prompting us to get the location
+  location = "[ click-and-drag to get gps location ]";
+}
+
+void draw() {
+  background(150, 75, 0);
+  fill(255);
+  text(location, width/2, height/2);
+}
+
+// when the mouse is dragged (previous x/y different than the current position),
+// update the current location
+void mouseDragged() {
+  getGPSLocation();
+}
+
+
+// function to load the location
+void getGPSLocation() {
   // if GPS can be accessed, store in 'location' string
   try {
     // get GPS coords - a lot of steps, but basically we load the best provider (either 3G or
@@ -60,7 +79,7 @@ void setup() {
     Criteria criteria = new Criteria();                          // default provider criteria
     String provider = lm.getBestProvider(criteria, false);       // can get a list of providers, or the best
     Location gpsLocation = lm.getLastKnownLocation(provider);    // location (last known if new isn't available)
-    
+
     // parse coordinates from Location
     longitude = gpsLocation.getLongitude();
     latitude = gpsLocation.getLatitude();
@@ -86,7 +105,7 @@ void setup() {
     // done! format into a nice printable string
     location = latitude + " / " + longitude + "\n\n" + address;
   }
-  
+
   // if we couldn't connect, set 'location' to an error message
   catch (NullPointerException npe) {
     location = "[ gps not available ]";
@@ -97,8 +116,3 @@ void setup() {
   }
 }
 
-void draw() {
-  background(150, 75, 0);
-  fill(255);
-  text(location, width/2, height/2);
-}
