@@ -31,7 +31,7 @@ void setup() {
   // load gps data and map image
   gpsData = loadStrings("StateCapitals.csv");
   map = loadImage("EquirectangularUSA.png");
-  mask = loadImage("EquirectangularUSA-Mask.png");
+  mask = loadImage("EquirectangularUSA-mask.png");
 
   // basic setup
   size(map.width, map.height);
@@ -63,7 +63,7 @@ void setup() {
   image(mask, 0,0);
 
   // draw the capitals as dots
-  fill(255);
+  fill(0);
   noStroke();
   for (int i=0; i<points.length; i++) {
     ellipse(points[i][0], points[i][1], 8, 8);
