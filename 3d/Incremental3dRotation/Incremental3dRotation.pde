@@ -57,7 +57,7 @@ void mouseDragged() {
   // thanks to rbrauer on the forums for suggesting
   // the cleaner version of this code 
   // https://forum.processing.org/topic/suggestions-for-incremental-3d-rotation#25080000001834217
-  rx += (pmouseY-mouseY)*.01;
-  ry += (pmouseX-mouseX)*-.01;
+  rx += (pmouseY-mouseY) * inc;
+  ry += (pmouseX-mouseX) * -inc;
 }
 

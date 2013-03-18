@@ -2,7 +2,7 @@
 READ KML FILES
  Jeff Thompson | 2013 | www.jeffreythompson.org
  
- KLM files, a growing standard used by Google Earth, are common
+ KML files, a growing standard used by Google Earth, are common
  for map data. They are stored in an XML format, a nested data
  structure similar to HTML. This format isn't as easy to
  parse as CSV, but provides more human-readable data.
@@ -29,6 +29,7 @@ String filename = "RiverForecast.kml";    // KLM file to load
 River[] rivers = new River[0];            // an array of custom River objects*
 String[] location, state, value;          // temporary arrays for parsing data from the file
 PImage mapImage;                          // image to put the data on
+PImage donut;                             // bonus! donut instead of a dot
 
 // *custom objects are created using the River class at the bottom; it allows
 //  multiple data points to be stored in a single object and retrieved more easily.
@@ -37,6 +38,7 @@ void setup() {
   
   // load the map and set the screen to its size
   mapImage = loadImage("EquirectangularUSA.png");
+  donut = loadImage("donut.png");
   size(mapImage.width, mapImage.height);
   image(mapImage, 0,0);                                  // display the map
 
@@ -74,8 +76,16 @@ void setup() {
   for (River river : rivers) {                                          // iterate all rivers...
     float longitude = map(river.longitude, -125.5, -66.5, 0, width);    // convert to screen coordinates
     float latitude = map(river.latitude, 50,24, 0, height);             // these are "tuned" to the map
-    float value = map(river.value, 0,maxRiverReading, 5,60);            // convert depth to a usable value
+    float value = map(river.value, 0,maxRiverReading, 15,150);            // convert depth to a usable value
+    
     ellipse(longitude, latitude, value, value);                         // draw the dot!
+    
+    // bonus: draw donuts instead at random angles!
+    /* pushMatrix();
+    translate(longitude,latitude);
+    rotate(random(0,TWO_PI));
+    image(donut, 0,0, value,value);
+    popMatrix(); */
   }
 }
 
