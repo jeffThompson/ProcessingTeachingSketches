@@ -5,6 +5,8 @@ Jeff Thompson | 2013 | www.jeffreythompson.org
 A gradient changes seamlessly with the cursor, but instead of 
 simply mapping from one color to another, here we transition
 between two gradients as well!
+
+This example is meant to mimic sunrise/sunset.
 */
 
 int midpoint = 350;  // where the transition between the two gradients occurs
