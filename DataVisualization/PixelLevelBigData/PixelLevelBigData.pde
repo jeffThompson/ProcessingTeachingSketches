@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /*
 PIXEL-LEVEL BIG DATA
  Jeff Thompson | 2013 | www.jeffreythompson.org
@@ -14,7 +12,7 @@ PIXEL-LEVEL BIG DATA
  the having to read the entire file into memory - very important for files
  this size!
  
- The data used here is chromosome number 01 from the Human Genome
+ The data used here is chromosome #01 from the Human Genome
  Project, downloaded from Project Gutenberg:
  http://www.gutenberg.org/ebooks/11775
  
@@ -46,6 +44,9 @@ void setup() {
 
   // set the sketch size to your screen - the data is MUCH larger than this :)
   size(displayWidth, displayHeight);
+  println("Displaying " + nfc(width*height) + " data points!");
+  
+  
   loadPixels();                            // load screen pixels so we can access them in our loop
 
   try {                                    // must run in a 'try' statement
@@ -70,7 +71,7 @@ void setup() {
           px = color(255);                    // white
           break;
         default: 
-          continue;                   // if the data is not ACGT, skip
+          continue;                           // if the data is not ACGT, skip (error catching, essentially)
         }
 
         // update pixel position     
