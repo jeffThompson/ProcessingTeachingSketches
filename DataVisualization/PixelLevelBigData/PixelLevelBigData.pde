@@ -25,6 +25,10 @@ PIXEL-LEVEL BIG DATA
  reds from greens. When color-coding data, it is best to avoid colors that are
  hard for these people to distinguish.
  
+ Not color blind? Want to see what it's like? Try the "Colorblind Web Page Filter",
+ which lets you surf websites under various forms of colorblindness:
+ http://colorfilter.wickline.org
+ 
  CHALLENGE:
  1. First iterate the data set and count the number of data points (hint: you
  will need to re-create the 'reader' object; you may also need a larger
@@ -38,14 +42,14 @@ String entry;                                       // line in the file
 int x = 0;                                          // x/y coords to address
 int y = 0;
 color px;                                           // color for each pixel
-
+ 
 
 void setup() {
 
   // set the sketch size to your screen - the data is MUCH larger than this :)
   size(displayWidth, displayHeight);
-  println("Displaying " + nfc(width*height) + " data points!");
-  
+  // size(15895, 15895);                // read the entire file; total of 252,644,000 data points
+  println("Displaying " + nfc(width*height) + " data points!"); 
   
   loadPixels();                            // load screen pixels so we can access them in our loop
 
@@ -95,4 +99,3 @@ void setup() {
   // finally, update the pixel array to display!
   updatePixels();
 }
-
