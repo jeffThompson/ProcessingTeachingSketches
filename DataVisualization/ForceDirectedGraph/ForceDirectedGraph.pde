@@ -63,10 +63,10 @@ void draw() {
 // a special Word class that stores data about each individual word in the HashMap
 class Word {
   
-  String word;    // word itself
-  int count;      // count 
-  float x, y;     // position
-  float size;     // size of circle
+  String word;      // word itself
+  int count;        // count 
+  float x, y;       // position
+  float size;       // size of circle
   
   Word (String _word, float _x, float _y) {
     word = _word;
@@ -82,7 +82,7 @@ class Word {
   
   void display() {
     noStroke();
-    fill(255, 100);
+    fill(255, 150);
     ellipse(x,y, size,size);
     fill(0, 200);
     text(word, x,y);
@@ -111,6 +111,20 @@ class Word {
           y = height-size/2;
         }
       }
+    }
+  }
+}
+
+// let us drag the words around!
+void mouseDragged() {
+  for (Word w : words.values()) {          // iterate all words in the HashMap
+    float radius = w.size/2;               // calculate the radius for collision detection
+    
+    // if we're clicked on a word...
+    if (mouseX > w.x-radius && mouseX < w.x+radius && mouseY > w.y-radius && mouseY < w.y+radius) {
+      w.x = mouseX;                        // update position to mouse's coordinates
+      w.y = mouseY;
+      break;                               // skip testing the rest of the words
     }
   }
 }
