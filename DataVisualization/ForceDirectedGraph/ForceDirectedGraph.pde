@@ -9,9 +9,13 @@ settles into place.
 
 Here we visualize all words from Shakespeare's 117th sonnet.
 
+Hit the spacebar to randomize the words and watch them wiggle into place!
+
 CHALLENGE:
 + Can you improve our Word class? Could the font and circle be scaled to the
   word count? Some other improvement?
++ Can you make the words order themselves alphabetically? See the 'Alphabetize'
+  tab for a possible solution.
 
 */
 
@@ -111,6 +115,16 @@ class Word {
           y = height-size/2;
         }
       }
+    }
+  }
+}
+
+// spacebar puts words in new random positions
+void keyPressed() {
+  if (key == 32) {
+    for (Word w : words.values()) {
+      w.x = random(100,width-100);
+      w.y = random(100,height-100);
     }
   }
 }
