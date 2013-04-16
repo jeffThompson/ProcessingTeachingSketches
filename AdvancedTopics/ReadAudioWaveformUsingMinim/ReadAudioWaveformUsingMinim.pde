@@ -24,6 +24,9 @@ float[] samples;                   // array for audio samples as floating point 
 
 void setup() {
   
+  size(800,200);
+  background(255);
+  
   // open audio file
   minim = new Minim(this);
   song = minim.loadSample(filename);
@@ -32,9 +35,13 @@ void setup() {
   // separately and average, or just assume they are close enough
   samples = song.getChannel(BufferedAudio.LEFT);
   
-  // print the first 10,000 samples so we can see what they look like
-  for (int i=0; i<10000; i++) {
-    print(samples[i] + "  ");
+  // draw a small part of the waveform and print the results
+  stroke(255,150,0);
+  for (int i=0; i<width; i++) {                   // iterate samples
+    float sample = abs(samples[i+10000]);         // change range from -1/1 to 0-1, offset into the file (avoids silence at the start)
+    sample = map(sample, 0.0, 1.0, 0,height/2);   // map range to window height
+    print (sample + "  ");                        // print the result
+    line(i, height/2-sample, i,height/2+sample);  // draw the waveform!
   }
 }
 
