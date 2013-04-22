@@ -1,4 +1,3 @@
-
 import java.util.*;  // import Collections, Comparator, etc for sorting ArrayList
 
 /*
@@ -6,6 +5,10 @@ SORT OBJECTS CLOCKWISE AROUND CENTER
 Jeff Thompson | 2013 | www.jeffreythompson.org
 
 Sorts an ArrayList of objects by their angle from a point in clockwise order.
+
+Since the trig functions used require radians, the default 0º mark is the right side of
+a circle - use the angleOffset variable to change the 0º mark (here we offset by
+HALF_PI to make 0º at 12 o'clock.
 */
 
 int radius = 300;                // radius of the circle
