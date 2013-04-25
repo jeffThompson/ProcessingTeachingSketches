@@ -89,17 +89,15 @@ class Ball {
 
   void display(int order) {
     stroke(255);
-    line(width/2,height/2, x,y);
-    
+    line(width/2,height/2, x,y);                // line from center
     fill(255, 150, 0);
     noStroke();
-    ellipse(x, y, 20, 20);
-    
+    ellipse(x, y, 20, 20);                      // ball itself
     textAlign(CENTER, CENTER);
     fill(0);
-    text(order, x, y);
+    text(order, x, y);                          // order in list
     fill(255);
-    text(getAngleInDegrees() + "º", x, y+30);
+    text(getAngleInDegrees() + "º", x, y+30);   // angle in degrees
   }
 
   void update() {
