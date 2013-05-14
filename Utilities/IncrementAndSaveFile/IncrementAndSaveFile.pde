@@ -12,6 +12,9 @@ INCREMENT AND SAVE FILE
 
 void setup() {
   incrementAndSave(sketchPath(""), 5);    // arguments are location and # of leading zeroes in filename
+  
+  // alternatively, specify a folder as either a full path or with the sketchPath("") method
+  // incrementAndSave(sketchPath("") + "/output", 3);
 }
 
 
@@ -43,7 +46,7 @@ void incrementAndSave(String folder, int leadingZeroes) {
     newDir.mkdir();
   }
 
-  // create next filen number, add leading 0s, and save
+  // create next file number, add leading 0s, and save
   String nextNumber = nf((maxFileNumber+1), leadingZeroes);
   String outputFilename = name + separator + nextNumber + "." + extension;
   save(folder + "/" + outputFilename);
