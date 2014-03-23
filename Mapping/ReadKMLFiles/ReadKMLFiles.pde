@@ -1,3 +1,4 @@
+
 /*
 READ KML FILES
  Jeff Thompson | 2013 | www.jeffreythompson.org
@@ -18,10 +19,10 @@ READ KML FILES
  Southern tip of Florida            24.3000       24
  
  Data source (a truncated version of an otherwise very large file):
- http://water.weather.gov/ahps/download.php
+ + http://water.weather.gov/ahps/download.php
  
  Map image via:
- http://commons.wikimedia.org/wiki/File:USA_location_map.svg
+ + http://commons.wikimedia.org/wiki/File:USA_location_map.svg
  
  */
 
@@ -29,6 +30,7 @@ String filename = "RiverForecast.kml";    // KLM file to load
 River[] rivers = new River[0];            // an array of custom River objects*
 String[] location, state, value;          // temporary arrays for parsing data from the file
 PImage mapImage;                          // image to put the data on
+
 PImage donut;                             // bonus! donut instead of a dot
 
 // *custom objects are created using the River class at the bottom; it allows
@@ -81,11 +83,11 @@ void setup() {
     ellipse(longitude, latitude, value, value);                         // draw the dot!
     
     // bonus: draw donuts instead at random angles!
-    /* pushMatrix();
+    /*pushMatrix();
     translate(longitude,latitude);
     rotate(random(0,TWO_PI));
     image(donut, 0,0, value,value);
-    popMatrix(); */
+    popMatrix();*/
   }
 }
 

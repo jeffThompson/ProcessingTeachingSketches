@@ -1,36 +1,37 @@
+
 /*
 MAP OVERLAY - PICKING YOUR PROJECTION
  Jeff Thompson | 2013 | www.jeffreythompson.org
  
  With GPS data in hand, placing a dot on a map can be more challenging
  than simply mapping coordinates to the screen size. The style of
- projection for your map can making this a trivial or very difficult
+ projection for your map can make this a trivial or very difficult
  process.
  
  Here, we use the Equirectangular Projection, where every division of
  latitude/longitude is equally-spaced.  For more information on this
  projection, see:
- http://en.wikipedia.org/wiki/Equirectangular_projection
+ + http://en.wikipedia.org/wiki/Equirectangular_projection
  
  Map images from:
- http://en.wikipedia.org/wiki/File:Equirectangular_projection_SW.jpg
- http://commons.wikimedia.org/wiki/File:BlankMap-World6-Equirectangular.svg
+ + http://en.wikipedia.org/wiki/File:Equirectangular_projection_SW.jpg
+ + http://commons.wikimedia.org/wiki/File:BlankMap-World6-Equirectangular.svg
  
  First, we load a sample GPS location for a "sanity-test" to make sure our
  system is working. Then we pull live earthquake data from the US Geological
  Service (USGS) from their real-time data; the data used here is earthquakes
  from the last 30 days that were magnitude 2.5 or greater:
- http://earthquake.usgs.gov/earthquakes/feed/csv/2.5/month
+ + http://earthquake.usgs.gov/earthquakes/feed/csv/2.5/month
  
  Get more versions of thie data at:
- http://earthquake.usgs.gov/earthquakes/feed
+ + http://earthquake.usgs.gov/earthquakes/feed
  
  A historical version of this data is saved in the sketch folder for those
  without reliable internet connections or in case the USGS service is removed.
  
  CHALLENGE:
- 1. Can you map the magnitude (intensity) of the earthquake from the data file
- to the size of the dot?
+ 1. Can you map the magnitude (intensity) of the earthquake from the data file 
+    to the size of the dot?
  */
 
 // GPS coordinates for Lincoln, Nebraska, USA
@@ -47,14 +48,13 @@ PImage mapMonochrome;
 
 void setup() {
 
-  // load images
+  // load map images
   mapSatellite = loadImage("Equirectangular-Satellite.png");
   mapMonochrome = loadImage("Equirectangular-Monochrome.png");
 
   // basic setup
   size(mapSatellite.width, mapSatellite.height);    // set screen to the image size
-  smooth();
-  noStroke();
+  noStroke();                                       // no outlines
 
   // convert test coords from lat/lon to screen coordinates
   lat = map(lat, 90.0, -90.0, 0, height);
