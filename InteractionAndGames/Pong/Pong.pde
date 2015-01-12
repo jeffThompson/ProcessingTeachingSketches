@@ -1,130 +1,117 @@
+
 /*
- PONG
- Jeff Thompson
- October 2010
+PONG
+ Jeff Thompson | 2015 | jeffreythompson.org
  
- A version of "Pong" for one person.
- 
- Includes the basic game with a few extras:
-   - Keeps score graphically
-   - Paddle gets smaller with every successful volley
- 
- www.jeffreythompson.org
+ A version of the classic videogame.
  */
 
-// BALL
-float ballX, ballY;
-float ballSpeedX = 5.0;
-float dirX = 1;
-float ballSpeedY = 2.0;
-float dirY = 1;
-int ballSize = 5;
+int ballSize =       12;         // how big to make the ball
+int paddleWidth =    12;         // size of the paddle
+int paddleHeight =   100;
+float playerSpeed =  15.0;       // how fast do the paddles move?
 
-// PADDLE
-int paddleWidth = 5;
-int paddleHeight = 30;
-int hit = 0;
-float paddleLeftEdge;
+float ballX, ballY;              // position of the ball onscreen
+float ballSpeedX, ballSpeedY;    // speed (and direction) of the ball
 
-// OTHER VARIABLES
-int maxScore = 100;
+float p1y, p2y;                  // player paddle position
+int scoreP1, scoreP2;            // current score for both players
+
+PFont font;                      // font for showing score
 
 
-void setup()
-{
-  size(1000,300);
-  smooth();
-  frameRate(30);
-  ellipseMode(RADIUS);  // draw all ellipses from center out
-  rectMode(RADIUS);     // same for rectangles
-  strokeCap(SQUARE);    // make all lines have square ends
+void setup() {
+  size(800, 800);                   // set window size
+  frame.setTitle("Pong");           // make window name look nice
+  noStroke();                       // no outlines!
+
+  // initialize variables
+  ballX =             width/2;      // set ball to center of screen
+  ballY =             height/2;
+  ballSpeedX =        2.0;          // move ball to the right at a 45º angle
+  ballSpeedY =        1.5;
+  p1y = p2y =         height/2;     // set paddles at the center of the screen
+  scoreP1 = scoreP2 = 0;            // start score at 0 for both players
+  
+  // setup font for displaying score
+  font = createFont("Helvetica", 72);    // font name and size
+  textFont(font, 72);
 }
 
-void draw()
-{
-  // IF THE FIRST FRAME DO THE FOLLOWING
-  if(frameCount <= 1) { 
-  ballX = width/2; ballY = height/2;                   // start ball in center*
-  paddleLeftEdge = width - paddleWidth - ballSize;     // ... and declare variable for the left edge of the paddle*
-  }                                                    // ** these have to be defined here because "size" is in setup
-  
-  // CLEAR THE WINDOW TO REDRAW EACH FRAME, DRAW DIVIDER, TALLY SCORE
-  fill(100,100,100);                  // fill color (4 values makes "trails")
-  rect(0,0, width,height);            // clear the screen to redraw
-  
-  rectMode(CORNER);                   // draw from the corner, not the center
-  fill(255);                          // make white
-  rect(0,0, 5,(height/maxScore)*hit);      // draw a vertical rectangle for score; scaled for variable window size to a max of 100pts
-  rectMode(RADIUS);                   // set back to "radius" mode
-  
-  noFill();                           // no fill, stroke parameters for dividing line
-  strokeWeight(2);
-  stroke(255);
-  for (int i=0; i<=height; i+=20){    // automatically draw the dividing line; for a 10px gap increment length + gap = 20px
-    line(width/2, i, width/2, i+10);  // draw lines down the middle that are 10px long
-  }
 
-  // UPDATE PADDLE
+void draw() {
+  // clear the screen every frame, draw the playing field and score
+  background(0);
+  fill(255, 100);
+  rect(width/2 - 3, 0, 6, height);
+  textAlign(LEFT, CENTER);
+  text(scoreP1, 50,50);
+  textAlign(RIGHT, CENTER);
+  text(scoreP2, width-50,50);
+
+  // draw the ball, update its position
   fill(255);
-  float paddleY = constrain(mouseY, paddleHeight, height-paddleHeight);  // create a variable that follows the mouse's Y position
-  rect(width-paddleWidth,paddleY, paddleWidth,paddleHeight);             // ... then draw the paddle along the left-hand side
+  ellipse(ballX, ballY, ballSize, ballSize);
+  ballX += ballSpeedX;
+  ballY += ballSpeedY;  
 
-  // TEST IF BALL HITS RIGHT SIDE
-  if(ballX > width+ballSize) {                 // if ball is past right side...
-    ballX = width/2;                           // place it at the center...
-    ballY = height/2;
-    ballSpeedX = 5;                            // and reset speeds for X and Y directions
-    ballSpeedY = 2;
-    // ballX = random(0, width-ballSize);      // ... or place the ball in a random spot
-    // ballY = random(0, height-ballSize);
-    paddleHeight = 30;                         // reset ball size (only for decreasing ball size below)
-    hit = 0;                                   // and reset "hit"
-    println(hit);                              // print score
+  // draw the paddles
+  rect(0, p1y, paddleWidth, paddleHeight);
+  rect(width-paddleWidth, p2y, paddleWidth, paddleHeight);
+
+  // update paddle position using mouse for player 1
+  // (player 2 is controlled by the keyboard - code is below)
+  p1y = mouseY;
+
+  // check for collision with the top/bottom of the screen, bounce
+  if (ballY < 0 || ballY > height) {
+    ballSpeedY *= -1.0;                // multiply by -1 = reverse direction!
   }
 
-  // TEST IF BALL HITS TOP or BOTTOM
-  if(ballY < 0 || ballY > height-ballSize) {   // if ball is above the top (0) or below the bottom
-    dirY *= -1;                                // reverse the Y direction
+  // check if ball has gone past the sides 
+  // if so update score and respawn the ball
+  if (ballX < 0) {                     // if off the left side...
+    scoreP2 += 1;                      // add to opponent's score
+    newBall();                         // new ball using custom function (at the bottom)
   }
-
-  // TEST IF BALL HITS LEFT SIDE
-  if(ballX < 0) {                              // if ball is past right side (0)
-    dirX *= -1;                                // reverse the X direction
+  else if (ballX > width) {
+    scoreP1 += 1;
+    newBall();
   }
-
-  // TEST IF BALL HAS HIT PADDLE
-  // this is a complicated way to see if the point is within a range of points
-  if(ballX == paddleLeftEdge                            // if ball has crossed the left edge of the paddle
-  && ballY > paddleY - (paddleHeight) - ballSize        // and the ball's Y position is greater than the bottom of the paddle
-  && ballY < paddleY + (paddleHeight) + ballSize) {     // and is less than the top of the paddle
-    dirX *= -1;                                         // then reverse direction
-    hit = hit+1;                                        // variable to record hits (used for scoring)
-    println(hit);                                       // print score
-
-    if(mouseY != pmouseY) {                    // if, at the same time, the current mouse position is not equal to the previous frame
-      ballSpeedY = (mouseY - pmouseY)/2.0;     // ... change Y speed to (current mouse - previous mouse)/2
-      if(ballSpeedY > 5.0) {                   // if speed is larger than 5 (maximum we decide on, can be changed)
-        ballSpeedY = 5.0;                      // set to max...
-      }
-      if(ballSpeedY < -5.0) {                  // .. or do the opposite if below -5
-        ballSpeedY = -5.0;
-      }
-    }
-    if(paddleHeight > 5);            // fancy code to shink paddle when ball hits (so long as it's larger than 5px)
-    paddleHeight = paddleHeight-2;   // ... shrink the paddle by 1px
-  }
-
-  // UPDATE BALL VARIABLES
-  ballX = ballX + (ballSpeedX * dirX);        // make the ball's X coordinate = to it's current coord + (the speed x direction)
-  ballY = ballY + (ballSpeedY * dirY);
-
-  // DRAW BALL
-  fill(255);                                  // ball color, etc
-  noStroke();
-  ellipse(ballX, ballY, ballSize, ballSize);  // draw ball centered on X,Y coords at the size determined at the top
   
-  // RESET AT MAX SCORE
-  if(hit > maxScore) { hit = 0; }
+  // check for collision with paddle
+  // 1. tests if ball is at the paddle on the R/L
+  // 2. tests if ball is below the top of the paddle
+  // 3. tests if the ball is above the bottom of the paddle
+  // if so, reverse the ball's direction
+  if (ballX - ballSize/2 <= paddleWidth && ballY > p1y &&  ballY < p1y + paddleHeight) {
+    ballSpeedX *= -1;
+  }
+  else if (ballX + ballSize/2 >= width-paddleWidth && ballY > p2y && ballY < p2y + paddleHeight) {
+    ballSpeedX *= -1;
+  }
+}
 
+
+// player 2 uses the arrow keys to move the paddle
+void keyPressed() {
+  if (key == CODED) {
+    if (keyCode == UP) {
+      p2y -= playerSpeed;          // minus = up
+    }
+    else if (keyCode == DOWN) {
+      p2y += playerSpeed;          // plus = down
+    }
+  }
+}
+
+
+// a custom "function" to create a new ball
+// this let's us re-use code more easily
+void newBall() {
+  ballX = width/2;
+  ballY = height/2;
+  ballSpeedX = random(0.5, 3.0);    // random speed!
+  ballSpeedY = random(-2.0, 2.0);
 }
 

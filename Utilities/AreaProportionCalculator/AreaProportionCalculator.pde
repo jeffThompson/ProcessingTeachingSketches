@@ -15,9 +15,9 @@
 */
 
 // change variables below
-float longSide = 17;
-float shortSide = 11;
-float targetArea = 8784330;
+float longSide = 8;          // initial dimensions
+float shortSide = 10;
+float targetArea = 8784330;   // output area
 String units = "inches";
 
 void setup() {
@@ -35,5 +35,5 @@ void setup() {
   
   // quit, since there's nothing to display
   exit();
-  
 }
+

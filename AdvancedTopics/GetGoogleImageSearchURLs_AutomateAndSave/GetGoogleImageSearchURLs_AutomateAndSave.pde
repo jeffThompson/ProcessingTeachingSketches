@@ -26,7 +26,7 @@ GET GOOGLE IMAGE SEARCH URLs - AUTOMATE AND SAVE
 // term to search for (use spaces to separate terms)
 String searchTerm = "bowl of fruit";
 
-int numSearches = 10;                 // how many searches to do (limited by Google to 20 images each) 
+int numSearches = 1;                 // how many searches to do (limited by Google to 20 images each) 
 String fileSize = "10mp";             // specify file size in mexapixels - S/M/L not figured out yet :)
 boolean saveImages = true;            // save the resulting images?
 
@@ -65,12 +65,19 @@ void setup() {
     // http://code.google.com/p/phylowidget/source/browse/trunk/PhyloWidget/src/org/phylowidget/render/images/ImageSearcher.java
     print(" downloading...");
     try {
-      URL query = new URL("http://images.google.com/images?gbv=1&start=" + offset + "&q=" + searchTerm + "&tbs=isz:lt,islt:" + fileSize);
-      HttpURLConnection urlc = (HttpURLConnection) query.openConnection();                                // start connection...
+      //URL query = new URL("http://images.google.com/images?gbv=1&start=" + offset + "&q=" + searchTerm + "&tbs=isz:lt,islt:" + fileSize);
+      
+      // ?q           query
+      // tbm=ish      seems to specify image search
+      // 
+      URL query = new URL("http://www.google.com/search?q=" + searchTerm + "&tbm=isch");
+      // &tbs=isz:lt,islt:" + fileSize
+      
+      HttpURLConnection urlc = (HttpURLConnection) query.openConnection();                      // start connection...
       urlc.setInstanceFollowRedirects(true);
       urlc.setRequestProperty("User-Agent", "");
       urlc.connect();
-      BufferedReader in = new BufferedReader(new InputStreamReader(urlc.getInputStream()));               // stream in HTTP source to file
+      BufferedReader in = new BufferedReader(new InputStreamReader(urlc.getInputStream()));     // stream in HTTP source to file
       StringBuffer response = new StringBuffer();
       char[] buffer = new char[1024];
       while (true) {
@@ -80,7 +87,7 @@ void setup() {
         }
         response.append(buffer, 0, charsRead);
       }
-      in.close();                                                                                         // close input stream (also closes network connection)
+      in.close();                                                                               // close input stream (also closes network connection)
       source = response.toString();
     }
     // any problems connecting? let us know
@@ -91,11 +98,13 @@ void setup() {
     // extract image URLs only, starting with 'imgurl'
     println(" parsing...");
     if (source != null) {
+      println(source);
       // built partially from: http://www.mkyong.com/regular-expressions/how-to-validate-image-file-extension-with-regular-expression
       String[][] m = matchAll(source, "imgurl=(.*?\\.(?i)(jpg|jpeg|png|gif|bmp|tif|tiff))");    // (?i) means case-insensitive
       if (m != null) {                                                                          // did we find a match?
         for (int i=0; i<m.length; i++) {                                                        // iterate all results of the match
           imageLinks = append(imageLinks, m[i][1]);                                             // add links to the array**
+          println(m[i][1]);
         }
       }
     }

@@ -30,7 +30,7 @@ void prepareExitHandler () {
         stop();
       } 
       catch (Exception ex) {
-        ex.printStackTrace();     // not much else to do at this point...
+        ex.printStackTrace();     // not much else we can do if there's an error at this point...
       }
     }
   }

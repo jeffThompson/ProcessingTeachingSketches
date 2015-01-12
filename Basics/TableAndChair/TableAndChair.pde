@@ -1,65 +1,63 @@
 /*
-"Table and Chair"
+TABLE and CHAIR
 Jeff Thompson
-March 2010
-www.jeffreythompson.org
-
-A simple drawing of a table and chair.
+Fall 2011
 
 www.jeffreythompson.org
 */
 
-void setup(){
-  size(600,600);
-  smooth();
-
-  PFont font;
-  font = loadFont("SansSerif-12.vlw");
-  textFont(font, 12);
-  textAlign(CENTER);
-
-}
-
-void draw(){
+void setup() {
+ 
+  size(500,500);
   background(255);
-  noCursor();
-
-  // COPY THE FOLLOWING CODE *****  
-
-  stroke(225);                       // line (stroke) color, change for darker bground
-
-  for(int i=0; i<width; i+=10){      // automatically scales to size and
-    line(i,0, i,height);             // draws vertical lines every 10px
-  }  
-
-  for(int j=0; j<height; j+=10){
-    line(0,j, width,j);              // draws horizontal lines
-  }
-
-  stroke(180);                       // darkens lines and
-  for(int i=0; i<width; i+=100){     // draws every 100px
-    line(i,0, i,height);             // vertical
-  }
-
-  for(int j=0; j<height; j+=100){
-    line(0,j, width,j);              // horizontal
-  }
-
-  // COPY THIS FOR CURSOR LABELING *****
-  // If using, this code must be at the very end of your draw() loop
-
-  fill(255,0,0);
   noStroke();
-  triangle(mouseX,mouseY, mouseX-5,mouseY-5, mouseX+5,mouseY-5);
-  stroke(180);
-  fill(255);
-  rect(mouseX-43,mouseY-25, 86, 20);
-  fill(180);
-  String position = ("x:" + mouseX + ", " + "y:" + mouseY);
-  text(position, mouseX, mouseY-10);
+  
+  /*************************************************/
+  // PERSPECTIVE VARIABLES
+  
+  int pOffset = 50;    // perspective offset
+  int lOffset = 5;     // for legs
 
-  // END COPY *****
+  /*************************************************/
+  // LEGS 
+  
+  fill(50);
+  rect(50,260, 10,150);    // left leg (front edge)
+  rect(340,260, 10,150);  // right leg (front edge)
+  
+  fill(70);
+  // left leg (right edge)
+  //   UL      LL      LR                      UR
+  quad(60,260, 60,410, 60+lOffset,410-lOffset, 60+lOffset,260-lOffset);
+  // right leg (rt edge)
+  //   UL       LL       LR                       UR
+  quad(350,260, 350,410, 350+lOffset,410-lOffset, 350+lOffset,260-lOffset);
 
+  /*************************************************/
+  // TOP
+  
+  fill(100);
+  rect(50,250, 300,10);    // top (front edge)
+  fill(150);
+  // top
+  //   LL      LR       UR                       UL
+  quad(50,250, 350,250, 350+pOffset,250-pOffset, 50+pOffset,250-pOffset);
+  fill(200);
+  // top right edge
+  //   UL       LL       LR                       UR
+  quad(350,250, 350,260, 350+pOffset,260-pOffset, 350+pOffset,250-pOffset);
+ 
+  /*************************************************/ 
+  // APRON
+  
+  fill(80);
+  rect(60,260, 280,10);        // front
+  
+  save("TableAndChairs.png");  // jpg, png, gif
+  
 }
+
+
+
 
 
