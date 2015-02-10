@@ -68,12 +68,6 @@ void setup()
     rect(i,i, i,i);
   }
 
-  /*
-  In-class assignment:
-   
-   Create patterns using for loops.
-   */
-
 }
 
 
