@@ -1,8 +1,10 @@
+
 /*
-INCREMENT AND SAVE FILE
+SAVE UNIQUE
  Jeff Thompson | 2013 | www.jeffreythompson.org
  
- Looks at a specified folder and creates an incremental filename to add.
+ Looks at a specified folder and creates an incremental filename, then saves
+ the image.
  
  The input pattern assumes the following format:
  file_00005.extension (note: the # of leading 0s can be specified)
@@ -11,17 +13,22 @@ INCREMENT AND SAVE FILE
  */
 
 void setup() {
-  incrementAndSave(sketchPath(""), 5);    // arguments are location and # of leading zeroes in filename
+  
+  // arguments are location and # of leading zeroes in filename
+  saveUnique(sketchPath(""), 5, "file", "_", ".jpg");
   
   // alternatively, specify a folder as either a full path or with the sketchPath("") method
-  // incrementAndSave(sketchPath("") + "/output", 3);
+  // saveUnique(sketchPath("") + "/output", 3, "image", "-", ".png");
 }
 
 
-void incrementAndSave(String folder, int leadingZeroes) {
-  String name = "file";        // name before number (ex: file_001.png)
-  String separator = "_";      // something between name and incremental # (see above example)
-  String extension = "png";    // no period!  
+void saveUnique(String folder, int leadingZeroes, String name, String separator, String extension) {
+  // NAME         name before number (ex: "file" in file_001.png)
+  // SEPARATOR    something between name and incremental # ("_" in above example)
+  // EXTENSION    period will be stripped, if included
+  
+  // strip period from the extensions, if it's there
+  if (extension.charAt(0) == '.') extension = extension.substring(1,extension.length());
 
   int maxFileNumber = 0;       // used to find the latest file #
 
@@ -50,6 +57,7 @@ void incrementAndSave(String folder, int leadingZeroes) {
   String nextNumber = nf((maxFileNumber+1), leadingZeroes);
   String outputFilename = name + separator + nextNumber + "." + extension;
   save(folder + "/" + outputFilename);
-  println(outputFilename);
 }
+
+
 
