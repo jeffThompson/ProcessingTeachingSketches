@@ -35,7 +35,7 @@ void setup() {
   pushMatrix();
   translate(width/2, height/2);            // move to center (can be any point)
   rotate(startAngle);                      // rotate to starting angle
-  for (int i=0; i<s.length (); i++) {      // draw character-by-character
+  for (int i=0; i<s.length(); i++) {       // draw character-by-character
     pushMatrix();                          // local transform for each letter
     translate(-dia/2, 0);                  // move to edge of circle
     rotate(-HALF_PI);                      // rotate letters (note what happens if you don't)
