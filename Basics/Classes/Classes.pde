@@ -46,16 +46,16 @@ void draw() {
 class Ball {
   
   // variables for the ball
-  float x, y;                    // we pass initial x/y position as arguments
-  float speedX, speedY;          // speed will be randomly set when we create the ball
   int ballSize = 100;            // size of ball set here - this is "hard-coded"
   color c = color(255,150,0);    // same with fill color
+  float x, y;                    // we pass initial x/y position as arguments
+  float speedX, speedY;          // speed will be randomly set when we create the ball
   
   Ball(float _x, float _y) {     // pass arguments when the ball is created
     x = _x;                      // set x/y position
     y = _y; 
-    speedX = random(-15,15);     // set random speed
-    speedY = random(-15,15);
+    speedX = random(-5,5);       // set random speed
+    speedY = random(-5,5);
   }
   
   void update() {                // a function to move the ball + bounce off walls
