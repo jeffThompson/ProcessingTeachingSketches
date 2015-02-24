@@ -21,7 +21,7 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  background(50);
   
   // rotate from center
   translate(width/2, height/2, -boxSize*5);
