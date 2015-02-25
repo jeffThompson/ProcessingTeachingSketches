@@ -3,14 +3,14 @@
 TEXT & FONTS
 Jeff Thompson | 2015 | www.jeffreythompson.org
 
-Loading a font:
-1. Go to Tools > Create Font...
-2. Select the font you would like to use
-3. Set the size – I find using a size 2x the max you intend
-   to use helps keep the font looking nice, though very small
-   type may benefit from a separate font at a smaller size
-4. Copy the resulting filename at the bottom
-5. Hit OK!
+LOADING A FONT:
+1.  Go to Tools > Create Font...
+2.  Select the font you would like to use
+3.  Set the size – I find using a size 2x the max you intend
+    to use helps keep the font looking nice, though very small
+    type may benefit from a separate font at a smaller size
+4.  Copy the resulting filename at the bottom
+5.  Hit OK!
 
 CHALLENGE:
 1.  Text can be placed using variables instead of static strings – can

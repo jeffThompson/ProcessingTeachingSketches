@@ -1,44 +1,66 @@
+
 /*
 IF STATEMENTS
-Jeff Thompson
-March 2012
+Jeff Thompson | 2015 | www.jeffreythompson.org
 
-www.jeffreythompson.org
+If/else statements can be used to compare two
+values and control the flow of a program.
+
+COMPARISONS
+We use a set of special symbols to compare values:
+
+>    greater than                2 > 1
+<    less than                   1 < 2
+>=   greater than or equal to    4 >= 2+2
+<=   less than or equal to       1 <= 2+2 
+==   equal to                    5 == 2+3
+&&   and                         a < b && b >= 10
+||   or                          a < b || b > c
+
 */
+
 
 void setup() {
   
-  int a = 90;
-  int b = 1000;
-  int c = 3;
+  // some variables to work with - try changing
+  // them and see the results
+  int a = 1;
+  int b = 2;
   
-  if (a < b) {
-    println("a is less than b");
+  // compare the integers
+  if (a == b) {                        // are the two numbers equal?
+    println("A is equal to B!");
+  }
+  else if (a > b) {                    // is a larger than b?
+    println("A is greater than B!");
+  }
+  else {                               // if not equal and a is not greater than b...
+    println("B is greater than A!");
+  }
+  
+  
+  // booleans can be written using == but we can also
+  // shorten it a bit (which many people find easier to read)
+  boolean enjoyIfStatements = true;
+  if (enjoyIfStatements) {                // if true
+    println("I enjoy if statements!");
+  }
+  
+  boolean dinnerTime = false;
+  if (!dinnerTime) {                      // if false
+    println("It is not dinner time...");
+  }
+  
+  
+  // string comparison is a little different
+  String myName = "Jeff";
+  String yourName = "Anne";
+  if (myName.equals(yourName)) {
+    println("We have the same name!");
   }
   else {
-    println("b is less than a");
-  }
-  
-  if (a == b) {
-    println("a equals b");
-  }
-  else if (a == c) {
-    println("a equals c");
-  }
-  else if (b == c) {
-    println("b equals c");
-  }
-  else {
-    println("none of the values are equal");
-  }
-  
-  String str1 = "This is a string";
-  String str2 = "This is a another string";
-  
-  if (str1.equals(str2)) {
-    println("str1 is the same as str2");
-  }
-  else {
-    println("str1 is NOT the same as str2");
+    println("We don't have the same name...");
   }
 }
+
+

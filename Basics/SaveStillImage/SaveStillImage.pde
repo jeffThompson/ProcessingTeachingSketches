@@ -1,35 +1,36 @@
+
 /*
-"Save Still Images"
-2009
+SAVE STILL IMAGES
+Jeff Thompson | 2015 | www.jeffreythompson.org
 
-This allows you to save stills of you project.  Formats available
-and recommended for print are .tiff and .png (.jpg also possible
-but not suggested for print).
+Saving images in Processing is easy!
 
-The code is:
+FORMATS
+Supported formats include jpg, png, tiff, and gif
 
-  save("your_filename.format");
-  
-  Be sure you have no spaces and non-letter characters except the _
+WHERE?
+Images are saved to your sketch folder by default, or you
+can specify a folder (which will get created) or a full
+path. Note that images will be overwritten without warning!
 
-Images are saved in your project's sketch folder, so look for them 
-there.  Files with the same name will be over-written and without warning,
-so be sure to add a number to the filename before saving new versions.
-
-Add the following code to the END of your code, just before the closing "}"
-
-www.jeffreythompson.org
 */
 
-void setup(){
 
-  // all your code here
+void setup() {
+  size(600,600);
   
-  // this should be the last line
-  save("jeffThompson_quilt.png");
+  // draw something!
+  background(0);
+  fill(255);
+  ellipse(width/2, height/2, 100,100);
   
-  // optional: exit the program when done if all
-  // you want to do is save the image
-  exit();
-
+  // save to the sketch folder - note we need the
+  // file extension as well
+  save("WhiteCircle.png");
+  
+  // save to a folder called "OutputFrames" which
+  // will be created automatically
+  // save("OutputFrames/WhiteCircle.png");
 }
+
+
