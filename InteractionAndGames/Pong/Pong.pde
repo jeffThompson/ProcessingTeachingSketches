@@ -3,7 +3,23 @@
 PONG
  Jeff Thompson | 2015 | jeffreythompson.org
  
- A version of the classic videogame.
+ A version of the classic videogame. In this example,
+ we'll see how to control a paddle, to bounce off the 
+ sides of the window and the paddles, and how to keep
+ score.
+ 
+ For a more complex but more flexible example, see
+ "PongWithArrayList" for a version using object-
+ oriented programming.
+ 
+ 
+ CHALLENGE:
+ +  How can you add the illusion of spin to the ball
+    depending on your paddle's motion? Hint: use the
+    built-in "pmouseX" and "pmouseY" to get the mouse's
+    previous position, which gives you direction of
+    movement!
+ 
  */
 
 int ballSize =       12;         // how big to make the ball
