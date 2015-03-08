@@ -4,13 +4,15 @@ FINITE STATE MACHINE AI
  Jeff Thompson | 2015 | www.jeffreythompson.org
  
  A "finite state machine" or FSM is a way of conceptualizing an 
- entity that has specific and discreet states. With well-chosen states,
+ entity that has specific and discreet states - in other words, the 
+ object can only have one state at a time. With well-chosen states,
  we can create complex-seeming behavior that can mimic physical
  conditions (how the entity moves) or emotional states (angry, curious,
  idle).
  
  For example, we can think of a zombie, but you can substitute the 
- "attack" langauge for any other kind of behavior.
+ "attack" langauge for any other kind of behavior. Here are some common
+ game AI states:
  
    IDLE          just stays still, only aware if something engages it directly
    AWARE         searches for intruders, notices things like open doors
@@ -20,7 +22,8 @@ FINITE STATE MACHINE AI
    FLEEING       runs away from the player
    DEAD          no longer aware, but may be revived (depending on the game)
  
- If we simplify this system, we have what's called a State/Even Table:
+ Let's simplify our system a bit. By combining triggers with the resulting
+ action, we have what's called a State/Even Table:
    1. idle until player is within a certain range
    2. if within range, moves towards the player
    3. if close enough, attacks
@@ -35,6 +38,11 @@ FINITE STATE MACHINE AI
  +  http://en.wikipedia.org/wiki/Finite-state_machine
  +  https://software.intel.com/en-us/articles/designing-artificial-intelligence-for-games-part-1
  +  http://gamedevelopment.tutsplus.com/tutorials/finite-state-machines-theory-and-implementation--gamedev-11867
+ 
+ CHALLENGE:
+ +  Can you get change the "flee" state to be triggered when the player
+    attacks, maybe by clicking or hitting the spacebar?
+ +
  
  */
 
@@ -126,5 +134,6 @@ void draw() {
   fill(zombieColor);
   ellipse(zombie.x, zombie.y, 40,40);
 }
+
 
 
