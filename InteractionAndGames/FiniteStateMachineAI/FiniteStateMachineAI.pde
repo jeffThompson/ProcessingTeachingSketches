@@ -40,9 +40,13 @@ FINITE STATE MACHINE AI
  +  http://gamedevelopment.tutsplus.com/tutorials/finite-state-machines-theory-and-implementation--gamedev-11867
  
  CHALLENGE:
- +  Can you get change the "flee" state to be triggered when the player
+ +  Can you trigger the "flee" state to be triggered when the player
     attacks, maybe by clicking or hitting the spacebar?
- +
+ +  Can you give the zombie a better "idle" state? Hint: try "sin()"
+ +  Can you make lots of zombies who all "listen" to each other and change
+    states based on the state of their neighbor? For example, if one zombie
+    is in "seek" mode, all zombies seek to the target. It will likely help
+    if you convert this code to an object-oriented approach.
  
  */
 
