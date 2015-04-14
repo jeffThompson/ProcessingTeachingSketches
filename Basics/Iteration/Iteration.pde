@@ -1,75 +1,51 @@
+
 /*
 ITERATION
- Jeff Thompson
- November 2009
+Jeff Thompson | 2015 | www.jeffreythompson.org
+
+Iteration is a very important programming idea - it uses repetition
+to execute lines of code. This can be purely functional (like going 
+through every item in an array) or to draw repeated shapes across
+the screen (like a grid).
+
+The two main ways we can iterate are "while" loops and "for" loops. Each
+are described below, though for loops are much more common.
+
+*/
+
+
+void setup() {
+  size(600,600);
+  background(255);
  
- Guide to repetition of images - the hard and the easy way
- 
- www.jeffreythompson.org 
- */
-
-void setup()
-{
-
-  size(400,400);
-  background(200);   // reminder, single number means gray
-  strokeWeight(2);
-  smooth();          // helps with diagonal lines too
-
-  // Draw a row of four diagonal lines -- the hard way
-
-  line(0,0, 100,400);      // X coord is off 100px between top and bottom,
-  line(100,0, 200,400);    // making a diagonal line
-  line(200,0, 300,400);
-  line(300,0, 400,400);
-
-  // Now the easier way (once you get the hang of it)
-
-  // begin loop    type  initial val  until...    add a num to i (same as i=i+100)
-  for             (int   i=0;         i<=300;     i+=100){
-    // then do everything in the curly brackets
-    line(i,0, i+100,400);
-    // then repeats over and over until the middle value above is reached (300)
-
-    // saves you four lines of code!
+  // a "while loop" runs until a condition is met
+  // this loop counts down from 10 to 0
+  int count = 10;          // an initial variable to work with
+  while (count >= 0) {     // runs until the condition is met (less than 0)
+    println(count);        // print the count
+    count -= 1;            // update the variable*
   }
-
-
-  // Smaller lines - nested loops
-  stroke(255);
-
-  for (int x=0; x<=400; x+=10){
-    for (int y=0; y<=400; y+=20){
-      line(x,y, x+10,y+10);
-
-      // saves you 800 lines of code!
-    }
+  
+  // *NOTE: what happens if you don't update the count variable?
+  // your program gets stuck and runs forever!
+  
+  // a "for loop" is a little harder to understand, but puts the
+  // initial value, condition, and increment into one statement
+  
+  // this for loop starts at 0, runs until i=9, and adds 1 to i each time
+  for (int i=0; i<10; i++) {
+    println(i);    
   }
-
-
-  // Do the same with rectangles
-  stroke(0);
-  strokeWeight(1);
-  noFill();
-
-  for (int i=0; i<=400; i+=20){
-    for (int j=0; j<=400; j+=5){
-      rect(i,j, i+20,j+5);
-
-      // save you 1600 lines of code!
-    }
+  
+  // we can use for loops to do tedious tasks like draw a grid of
+  // lines across the screen (this saves us at least 80 lines of code!)
+  stroke(0, 100);
+  for (int x=0; x<width; x+=10) {    // note lines will be 10px apart
+    line(x,0, x,height);             // draw vertical lines
   }
-
-
-  // One more example increasing the size of squares
-  fill(255,0,0);
-
-  for (int i=0; i<=400; i+=2){
-    rect(i,i, i,i);
+  for (int y=0; y<height; y+=20) {   // this draws lines 20px apart
+    line(0,y, width,y);
   }
-
 }
-
-
 
 
