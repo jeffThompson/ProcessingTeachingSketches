@@ -11,6 +11,10 @@ the screen (like a grid).
 The two main ways we can iterate are "while" loops and "for" loops. Each
 are described below, though for loops are much more common.
 
+CHALLENGES:
++  Can you modify our grid loop to make the spacing get progressively smaller?
++  Can you use a for loop to draw concentric circles?
+
 */
 
 
