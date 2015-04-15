@@ -4,9 +4,10 @@ RECURSION
 Jeff Thompson | 2015 | www.jeffreythompson.org
 
 Recursion is a way of controlling the flow of a program with
-a function that continually calls itself. Unlike iteration,
-where we walk through a repeated series of commands step-by-
-step, recursion can create complex behavior such as fractals.
+a function that calls itself. Unlike iteration, where we walk 
+through a repeated series of commands step-by-step, recursion 
+can create complex behavior such as fractals that are impossible
+to make otherwise.
 
 A recursive function always:
 1. Has a test to see if it's time to stop (otherwise it will
@@ -17,7 +18,7 @@ CHALLENGES:
 +  Instead of printing 0, can you make the countdown example
    print "BLASTOFF!"?
 +  Can you add another piece to the spiral() function that angles
-   off the other direction?
+   off in both directions?
 +  What shapes do you find in nature that mimic this kind of
    recursive function? Can you re-create them in code?
 
