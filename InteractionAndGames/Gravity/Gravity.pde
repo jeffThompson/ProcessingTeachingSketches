@@ -4,8 +4,8 @@ GRAVITY
 Jeff Thompson | 2015 | www.jeffreythompson.org
 
 Simulating physics can be pretty easy (like this gravity
-example) or REALLY complicated. Here we move a ball using
-gravity and control its "bounciness" with a friction
+example) or REALLY complicated. Here we move a ball downward
+using gravity and control its "bounciness" with a friction
 variable.
 
 For an example with directional movement, see the "BouncingBubbles"
@@ -25,38 +25,40 @@ CHALLENGES:
 
 */
 
-float dia =       50;      // size of the ball
-float gravity =   0.3;     // strength of gravity - try changing!
-float friction =  -0.4;    // "bounciness" of the ball - also change!
+float dia =        50;      // size of the ball
+float gravity =    0.5;     // strength of gravity - try changing!
+float bounciness = -0.8;    // aka friction - also change!
 
-float x, y;                // position
-float speed = 0;           // initial speed is 0
+float x, y;                 // position
+float speed = 0;            // initial speed is 0
 
 
 void setup() {
   size(800,800);
   
-  x = width/2;             // start ball at top
-  y = dia*2;
+  x = width/2;              // start ball at center
+  y = dia*2;                // and just below the top
 }
 
 
 void draw() {
   background(50);
   
-  // update position by incrementally adding
-  // gravity - this makes the ball accelerate
+  // incrementally adding gravity to the speed
+  // makes the ball accelerate
   speed += gravity;
+  
+  // then add speed to the position
   y += speed;
   
   // bounce!
   // first we set the position of the ball to the 
-  // bottom, otherwise it drifts down below the bottom
+  // bottom, otherwise it drifts down below the bottom,
   // then we reverse the direction and reduce the speed
-  // by multiplying it by friction
+  // by multiplying it by "bounciness"
   if (y + dia/2 > height) {
     y = height-dia/2;
-    speed *= friction;
+    speed *= bounciness;
   }
   
   // draw the ball
