@@ -50,6 +50,7 @@ void draw() {
   translate(width/2, height);
   rotate(radians(windSpeed));
   stroke(10);
+  strokeWeight(5);
   line(0,0, 0,-trunkLen);
   fill(255, 100);
   noStroke();
@@ -58,17 +59,15 @@ void draw() {
   
   // or a fancier "Pythagoras Tree" - a kind
   // of fractal pattern using a recursive function
-  /*
-  translate(width/2, height);
-  rotate(radians(windSpeed));
+  /* translate(width/2, height);
   stroke(255);
+  strokeWeight(3);
   line(0,0, 0,-trunkLen);
-  branch(trunkLen);
-  */
+  branch(trunkLen); */
   
   // update wind speed using 1D Perlin noise
   // noise() returns a value 0 to 1, so mult by 45 means
-  // the wind speed will be 0-45º
+  // the wind speed will result in an angle of 0-45º
   windSpeed = noise(noisePos) * 45;
   noisePos += windInc;
   
@@ -80,25 +79,28 @@ void draw() {
 
 // a "recursive" function to draw the tree
 // for more information on recursive functions, see Basics > Recursion
-void branch (float s) {
+void branch (float len) {
  
   // store previous and reduce branch length
-  float prevS = s;
-  s *= 0.5 * sqrt(2);    // experiment with changing and see what happens
-  
-  // add some twist based on the wind speed
-  float twist = map(windSpeed, 0,45, 0,30);
+  float prevLen = len;
+  len *= 0.5 * sqrt(2);    // experiment with changing this and see what happens
   
   // keep going until the branches are too small
-  if (s > minSize) {
+  if (len > minSize) {
+    
+    // larger branches are stiffer than little ones
+    float stiffness = map(len, minSize, trunkLen, 1.0, 0.2);
+  
+    // add some twist based on the wind speed and stiffness
+    float twist = windSpeed * stiffness;
     
     // draw left branches
     pushMatrix();                             // local mode
-    translate(0, -prevS);                     // move up to top of prev branch
+    translate(0, -prevLen);                   // move up to top of prev branch
     rotate(radians(-branchAngle + twist));    // rotate to new position + twist from wind*
     stroke(255);
-    line(0, 0, 0, -s);                        // draw as a line
-    branch(s);                                // call again!
+    line(0, 0, 0, -len);                      // draw as a line
+    branch(len);                              // call again!
     popMatrix();
 
     // *NOTE: we only add twist to branches on the left side
@@ -106,11 +108,11 @@ void branch (float s) {
 
     // draw right branches too
     pushMatrix();
-    translate(0, -prevS);
+    translate(0, -prevLen);
     rotate(radians(branchAngle));
     stroke(255);
-    line(0, 0, 0, -s);
-    branch(s);
+    line(0, 0, 0, -len);
+    branch(len);
     popMatrix();
   }
 }
