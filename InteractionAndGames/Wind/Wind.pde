@@ -29,7 +29,7 @@ float windInc =     0.01;       // how quickly the wind changes speed (try chang
 
 // for Pythagoras Tree version
 float branchAngle = 30;         // angle between two branches
-int minSize =       10;         // minimum size of branches
+int minLen =        10;         // minimum size of branches
 
 float windSpeed =   0;          // speed, which will = angle of bend
 float noisePos =    0;          // "position" in the Perlin noise
@@ -86,10 +86,10 @@ void branch (float len) {
   len *= 0.5 * sqrt(2);    // experiment with changing this and see what happens
   
   // keep going until the branches are too small
-  if (len > minSize) {
+  if (len > minLen) {
     
     // larger branches are stiffer than little ones
-    float stiffness = map(len, minSize, trunkLen, 1.0, 0.2);
+    float stiffness = map(len, minLen, trunkLen, 1.0, 0.2);
   
     // add some twist based on the wind speed and stiffness
     float twist = windSpeed * stiffness;
@@ -98,7 +98,6 @@ void branch (float len) {
     pushMatrix();                             // local mode
     translate(0, -prevLen);                   // move up to top of prev branch
     rotate(radians(-branchAngle + twist));    // rotate to new position + twist from wind*
-    stroke(255);
     line(0, 0, 0, -len);                      // draw as a line
     branch(len);                              // call again!
     popMatrix();
@@ -110,7 +109,6 @@ void branch (float len) {
     pushMatrix();
     translate(0, -prevLen);
     rotate(radians(branchAngle));
-    stroke(255);
     line(0, 0, 0, -len);
     branch(len);
     popMatrix();
