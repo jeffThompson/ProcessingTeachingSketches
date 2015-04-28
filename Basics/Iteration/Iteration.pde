@@ -17,7 +17,6 @@ CHALLENGES:
 +  Can you use a for loop to draw concentric circles?
 +  You can nest for loops together! Can you write a for loop inside a
    for loop to draw a dot across the screen every 5px?
-
 */
 
 
