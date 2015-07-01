@@ -6,40 +6,40 @@ Sketches created for teaching students Processing (and, by extension, Java) plus
 \- \- \-
 
 ####Basics
-Basic program structure; drawing shapes; simple interaction, output
+Examples created for first-time programmers. Basic program structure, variables, drawing shapes, etc.
 
 ####Advanced Topics
-Implementation of Java classes for date, etc; fancier iteration examples; window extensions
+Lots of random but more advanced examples. Fancier iteration examples, creating files, sorting ArrayList and PVectors, etc.
 
 ####Utilities
-Formatting numbers and strings; file manipulation; run Unix commands
+Lots of useful bits for lower-level programming. Formatting numbers and strings, file manipulation, run Unix commands, etc.
 
-####3d
-Finding the direction of a triangle's 'normal' (more to come)
+####3D
+Most math-related examples for working in 3D. Finding the normal of a triangle, incremental 3D rotation, flatten a triangle, etc.
 
 ####Collision Detection
-A suite of functions for 2d collision detection, made from basic math (ie: no vectors, just algebra)
+Collision detection examples [moved to their own repo](https://github.com/jeffThompson/CollisionDetection)
 
 ####Data Visualization
-Basic examples for loading data from file and web; HTML parsing
+Basic examples for working with data. Loading data from file and web in a variety of formats, HTML scraping, force directed graphs, etc.
+
+####Design and Typography
+Graphic design and type-related examples. Gradients, parallel lines, drawing text on a circle.
 
 ####Mapping
-Map-specific examples for GPS position, etc
-
-####Drawing
-Drawing utilities; parallel lines
+Map-specific examples for reading KLM files, GPS position, etc.
 
 ####Image Processing and OpenCV
-Pixel-based image processing; OpenCV examples; seam carving; posterization
+Examples for working with images and computer vision. Histograms, contrast adjustment,  OpenCV examples, seam carving, posterization, etc.
 
 ####Interaction and Games
-Basic game structure; input and interface examples; basic trig
+Lots of game and interaction examples. Game structure, chase and flee behavior, aiming with basic trig, gravity, etc.
 
 ####Text Processing
-Parsing text using String functions; word and character counting; reading external files
+Examples for parsing text. Working with text files, using Java's BufferedReader, etc.
 
 ####Android
-Growing collection of Android examples; the goal for these examples is to present the cleanest, simplest methods to interface with the Android API, especially for reading the sensors.
+Collection of Android examples, though may not work so well with updates to the Android SDK. Clean and simple methods to interface with the Android API, especially for reading the sensors, generating audio, GPS, etc.
 
 \- \- \-
 
