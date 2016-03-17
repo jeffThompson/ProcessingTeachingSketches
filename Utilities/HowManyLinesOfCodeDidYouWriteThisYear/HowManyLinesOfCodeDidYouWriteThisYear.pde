@@ -16,8 +16,8 @@ HOW MANY LINES OF CODE DID YOU WRITE THIS YEAR?
  www.jeffreythompson.org
  */
 
-int whichYear = 2012;                                          // what year do you want to report?
-String sketchbook = "/Users/jthompson9/Documents/Processing";  // sketchbook location
+int whichYear = 2014;                                          // what year do you want to report?
+String sketchbook = "/Users/JeffThompson/Documents/Python";  // sketchbook location
 
 int numFiles = 0;
 int lineCount = 0;

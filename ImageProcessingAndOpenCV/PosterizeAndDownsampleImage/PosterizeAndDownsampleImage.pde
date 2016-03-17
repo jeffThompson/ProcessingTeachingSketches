@@ -14,9 +14,9 @@ PImage p;
 void setup() {
 
   // load image and set size of screen to same
-  p = loadImage(filename);           // load
-  size(p.width, p.height);           // set size to that of the image
-  colorMode(HSB, 255);               // allows us to access the brightness of a color
+  p = loadImage(filename);             // load
+  size(700,477);
+  colorMode(HSB, 255);                 // allows us to access the brightness of a color
 
   // draw image to screen and access it's pixel values
   image(p, 0, 0);
@@ -32,11 +32,12 @@ void pixelateImage(int pxSize) {
   // use ratio of height/width...
   float ratio;
   if (width < height) {
-    ratio = height/width;
+    ratio = (float) height/width;
   }
   else {
-    ratio = width/height;
+    ratio =(float) width/height;
   }
+  println("Ratio: " + ratio);
   
   // ... to set pixel height
   int pxH = int(pxSize * ratio);
@@ -64,4 +65,3 @@ void posterizeImage(int rangeSize) {
   }
   updatePixels();
 }
-

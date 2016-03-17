@@ -2,11 +2,11 @@
 # Jeff Thompson | www.jeffreythompson.org
 
 # enter the year you're looking for and the path to your Processing sketchbook
-lookFor="pde"																					  	# file extension to look (period optional)
-yearCreated="2011"																				# year to look at
-pathToCheck="/Users/jeffthompson/Documents/Processing"		# where to look
-# pathToCheck=$HOME																				# alternatively, look everywhere (may be VERY slow)
-dateRange="01-Jan-$yearCreated"														# set date to the first of the year we're looking for
+lookFor="pde"												# file extension to look (period optional)
+yearCreated="2014"											# year to look at
+pathToCheck="/Users/jeffthompson/Documents/Arduino"		# where to look
+#pathToCheck=$HOME											# alternatively, look everywhere (may be VERY slow)
+dateRange="01-Jan-$yearCreated"								# set date to the first of the year we're looking for
 
 echo ""
 echo "HOW MANY LINES OF CODE DID YOU WRITE THIS YEAR?"
