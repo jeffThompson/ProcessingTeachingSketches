@@ -62,8 +62,11 @@ catch (Exception e) {
 
 // extract image URLs only, starting with 'imgurl'
 if (source != null) {
+  String[][] m = matchAll(source, "img height=\"\\d+\" src=\"([^\"]+)\"");
+  
+  // older regex, no longer working but left for posterity
   // built partially from: http://www.mkyong.com/regular-expressions/how-to-validate-image-file-extension-with-regular-expression
-  String[][] m = matchAll(source, "imgurl=(.*?\\.(?i)(jpg|jpeg|png|gif|bmp|tif|tiff))");    // (?i) means case-insensitive
+  // String[][] m = matchAll(source, "imgurl=(.*?\\.(?i)(jpg|jpeg|png|gif|bmp|tif|tiff))");    // (?i) means case-insensitive
   for (int i=0; i<m.length; i++) {                                                          // iterate all results of the match
     println(i + ":\t" + m[i][1]);                                                         // print (or store them)**
   }
@@ -73,4 +76,3 @@ if (source != null) {
 
 // all done!
 exit();
-
