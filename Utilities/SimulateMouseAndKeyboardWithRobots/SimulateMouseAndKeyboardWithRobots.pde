@@ -1,6 +1,6 @@
 import java.awt.Robot;            // for the basic Robot class
 import java.awt.event.KeyEvent;   // to simulate key presses
-import java.awt.AWTException;     // for relate exceptions
+import java.awt.AWTException;     // for related exceptions
 
 /*
 SIMULATE MOUSE AND KEYBOAD WITH "ROBOTS"

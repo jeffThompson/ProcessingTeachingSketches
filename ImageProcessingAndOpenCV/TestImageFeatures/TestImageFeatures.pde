@@ -68,7 +68,7 @@ void setup() {
 
   // display the image
   PImage img = loadImage(filename);
-  size(img.width, img.height);
+  surface.setSize(img.width, img.height);
   image(img, 0, 0);
   filter(POSTERIZE, 4);
   
