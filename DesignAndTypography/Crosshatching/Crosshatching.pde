@@ -3,9 +3,13 @@
 CROSSHATCH
 Jeff Thompson | 2016 | jeffreythompson.org
 
-Fill is cool, but crosshatching is way cooler :)
+Fill is cool, but crosshatching is way cooler! Draws
+a series of diagonal lines to fill an area.
 
-Draws a series of diagonal lines to fill an area.
+CHALLENGE:
++ Can you reverse the crosshatch direction? Add a boolean variable
+  to the function to trigger the direction.
++ Can you apply this to an image's pixels?
 
 */
 
@@ -16,69 +20,39 @@ void setup() {
   // arguments are start x/y, end x/y, the
   // line density, and to reverse or not
   stroke(0);
-  hatch(30, 30, width-30, height-30, 10, false);
-  hatch(30, 30, width-30, height-30, 10, true);
+  hatch(30, 30, width-30, height-30, 10);
+  hatch(30, 30, width-30, height-30, 10);
 }
 
 
-void hatch (int sx, int sy, int w, int h, int interval, boolean reverse) {
+void hatch (float sx, float sy, float w, float h, float interval) {
+  float ex = sx;             // end x position along start
+  sx = sx + interval;        // offset by one interval
+  float ey = sy + interval;  // same for end y
 
-  // normal direction
-  if (!reverse) {
-    int ex = sx;               // end x position along start
-    sx = sx + interval;        // offset by one interval
-    int ey = sy + interval;    // same for end y
-    
-    while (true) {
-      line(sx, sy, ex, ey);    // draw a line at the current position
+  while (true) {
+    line(sx, sy, ex, ey);    // draw a line at the current position
 
-      sx += interval;          // start x walks across
-      if (sx > w) {            // when it hits the edge...
-        sx = w;                // ... it stops
-        sy += interval;        // ... and start y starts moving down
-      }
-      ey += interval;          // same for end y
-      if (ey > h) {
-        ey = h;
-        ex += interval;
-      }
-
-      // when we've converged at the other
-      // end, we are done!
-      if (sx == ex && sy == ey) {
-        return;
-      }
+    sx += interval;          // start x walks across
+    if (sx > w) {            // when it hits the edge...
+      sy += sx-w;            // ...move down by the remainder*
+      sx = w;                // ...and stop x
     }
-  } 
-
-  // reverse
-  // (basically the same as above, but working upward
-  // in the y direction)
-  else {
-    int startY = sy;
     
-    int ex = sx;
-    sx = sx + interval;
-    sy = h;
-    int ey = sy - interval;
+    // * right triangle math!
+    //   if we just add the interval to sy, we'd get
+    //   weird gaps, but because we're at 45º, we can
+    //   just move down by sx-w (whatever would hang
+    //   over the right edge) and our spacing stays
+    //   the same
     
-    while (true) {
-      line(sx, sy, ex, ey);
-
-      sx += interval;
-      if (sx > w) {
-        sx = w;
-        sy -= interval;
-      }
-      ey -= interval;
-      if (ey < startY) {
-        ey = startY;
-        ex += interval;
-      }
-
-      if (sx == ex && sy == ey) {
-        return;
-      }
+    ey += interval;          // same for end y
+    if (ey > h) {
+      ex += ey-h;
+      ey = h;
+      //ex += interval;
     }
+    
+    if (ex >= sx) return;
   }
 }
