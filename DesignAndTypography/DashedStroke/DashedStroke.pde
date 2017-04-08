@@ -1,3 +1,4 @@
+
 import java.awt.Graphics2D;    // required imports for dashed lines
 import java.awt.BasicStroke;
 
@@ -37,7 +38,7 @@ void setup() {
   stroke(255);
   fill(255, 150, 0);
   
-  // create the stroke!
+  // create the stroke
   Graphics2D g2 = ((PGraphicsJava2D)g).g2;    // create instance of Graphics2D for the BasicStroke
   BasicStroke stroke = new BasicStroke(weight, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER, 1.0f, dash, 0.0f);
   g2.setStroke(stroke);
